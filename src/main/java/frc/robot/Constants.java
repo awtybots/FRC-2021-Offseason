@@ -33,9 +33,15 @@ public final class Constants {
     public static final int motorID = 0; // TODO
   }
 
-  public static final class Flywheel {
-    public static final double gearRatio = 1.0; // TODO
-    public static final int motorID = 1; // TODO
-    public static final double readyToShootRPMThreshold = 50.0;
+  public static final class Shooter {
+    public static final double flywheelGearRatio = 1.0; // TODO
+    public static final int flywheelMotorID = 1; // TODO
+    public static final int readyToShootRPMThreshold = 50;
+    public static final int flywheelMaxRPM = 6400;
+
+    public static final double hoodGearRatio = 1.0; // TODO
+    public static final int hoodMotorID = 1; // TODO
+    public static final int minHoodLaunchAngle = 56;
+    public static final int maxHoodLaunchAngle = 76;
   }
 }
