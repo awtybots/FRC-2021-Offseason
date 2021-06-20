@@ -4,14 +4,14 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.Drive;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 public class DrivetrainSubsystem extends SubsystemBase {
-  
+
   private WPI_TalonFX driveLeftFront;
   private WPI_TalonFX driveLeftBack;
   private WPI_TalonFX driveRightFront;
@@ -28,16 +28,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     driveRightBack = new WPI_TalonFX(Drive.rightMotor2ID);
 
     driveLeftFront.follow(driveLeftBack);
-    driveRightFront.follow(driveRightBack);    
+    driveRightFront.follow(driveRightBack);
 
     m_robotDrive = new DifferentialDrive(driveLeftFront, driveRightFront);
-
   }
 
   public void drive(double speed, double rotation) {
     m_robotDrive.arcadeDrive(speed, rotation);
   }
-
 
   @Override
   public void periodic() {

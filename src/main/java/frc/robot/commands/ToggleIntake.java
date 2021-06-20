@@ -10,11 +10,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class ToggleIntake extends StartEndCommand {
 
   public ToggleIntake(IntakeSubsystem intake) {
-    super(
-      () -> intake.toggle(true,true),
-      () -> intake.toggle(false,false),
-      intake
-    );
+    super(() -> intake.toggle(true, true), () -> intake.toggle(false, false), intake);
   }
-
 }

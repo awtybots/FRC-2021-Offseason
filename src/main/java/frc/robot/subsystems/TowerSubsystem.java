@@ -4,11 +4,11 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.Tower;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.Tower;
 
 public class TowerSubsystem extends SubsystemBase {
 
@@ -26,5 +26,4 @@ public class TowerSubsystem extends SubsystemBase {
   public void reverse() {
     motor.set(ControlMode.PercentOutput, -Tower.speed);
   }
-
 }

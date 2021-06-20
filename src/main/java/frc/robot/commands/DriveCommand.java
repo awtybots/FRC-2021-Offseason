@@ -4,9 +4,9 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.DrivetrainSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends CommandBase {
@@ -16,7 +16,8 @@ public class DriveCommand extends CommandBase {
   private int speedAxis;
   private int rotationAxis;
 
-  public DriveCommand(DrivetrainSubsystem m_robotDrive, Joystick controller, int speedAxis, int rotationAxis) {
+  public DriveCommand(
+      DrivetrainSubsystem m_robotDrive, Joystick controller, int speedAxis, int rotationAxis) {
     this.m_robotDrive = m_robotDrive;
     addRequirements(m_robotDrive);
 
@@ -24,7 +25,7 @@ public class DriveCommand extends CommandBase {
     this.speedAxis = speedAxis;
     this.rotationAxis = rotationAxis;
   }
-  
+
   @Override
   public void execute() {
     double speed = controller.getRawAxis(speedAxis);

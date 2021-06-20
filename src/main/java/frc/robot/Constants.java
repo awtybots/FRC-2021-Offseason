@@ -13,24 +13,29 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    
-    public static final class Drive {
-        public static final int leftMotor1ID = 13;
-        public static final int leftMotor2ID = 14;
-        public static final int rightMotor1ID = 11;
-        public static final int rightMotor2ID = 12;
-    }
 
-    public static final class Intake {
-        public static final double speed = 0.6;
-        public static final int motorID = 5;
-        public static final int pistonDown = 5;
-        public static final int pistonUp = 4;
-    }
+  public static final class Drive {
+    public static final int leftMotor1ID = 13;
+    public static final int leftMotor2ID = 14;
+    public static final int rightMotor1ID = 11;
+    public static final int rightMotor2ID = 12;
+  }
 
-    public static final class Tower {
-        public static final double speed = 0.8;
-		public static final int motorID = 0;
-    }
+  public static final class Intake {
+    public static final double speed = 0.6;
+    public static final int motorID = 5;
+    public static final int pistonDown = 5;
+    public static final int pistonUp = 4;
+  }
 
+  public static final class Tower {
+    public static final double speed = 0.8;
+    public static final int motorID = 0; // TODO
+  }
+
+  public static final class Flywheel {
+    public static final double gearRatio = 1.0; // TODO
+    public static final int motorID = 1; // TODO
+    public static final double readyToShootRPMThreshold = 50.0;
+  }
 }

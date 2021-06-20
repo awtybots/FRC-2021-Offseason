@@ -11,10 +11,11 @@ public class ToggleTower extends StartEndCommand {
 
   public ToggleTower(TowerSubsystem tower, boolean reverse) {
     super(
-      () -> {if (reverse) tower.reverse(); else tower.toggle(true);},
-      () -> tower.toggle(false),
-      tower
-    );
+        () -> {
+          if (reverse) tower.reverse();
+          else tower.toggle(true);
+        },
+        () -> tower.toggle(false),
+        tower);
   }
-
 }

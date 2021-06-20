@@ -30,18 +30,23 @@ public class RobotContainer {
   private final int rotationAxis = XboxController.Axis.kRightX.value;
 
   /* Driver Buttons */
-  private final JoystickButton toggleIntake = new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);
-  
+  private final JoystickButton toggleIntake =
+      new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);
+
   /* Operator Buttons */
-  private final JoystickButton layupShot = new JoystickButton(operator, XboxController.Button.kA.value);
-  private final JoystickButton midrangeShot = new JoystickButton(operator, XboxController.Button.kX.value);
-  private final JoystickButton longShot = new JoystickButton(operator, XboxController.Button.kB.value);
-  private final JoystickButton toggleTower = new JoystickButton(operator, XboxController.Button.kBumperRight.value);
-  private final JoystickButton toggleIndexer = new JoystickButton(operator, XboxController.Axis.kLeftTrigger.value);
-  private final JoystickButton reverseTower = new JoystickButton(operator, XboxController.Button.kBumperRight.value);
-  
-  
-  
+  private final JoystickButton layupShot =
+      new JoystickButton(operator, XboxController.Button.kA.value);
+  private final JoystickButton midrangeShot =
+      new JoystickButton(operator, XboxController.Button.kX.value);
+  private final JoystickButton longShot =
+      new JoystickButton(operator, XboxController.Button.kB.value);
+  private final JoystickButton toggleTower =
+      new JoystickButton(operator, XboxController.Button.kBumperRight.value);
+  private final JoystickButton toggleIndexer =
+      new JoystickButton(operator, XboxController.Axis.kLeftTrigger.value);
+  private final JoystickButton reverseTower =
+      new JoystickButton(operator, XboxController.Button.kBumperRight.value);
+
   /* Subsystems*/
   private final DrivetrainSubsystem m_drive = new DrivetrainSubsystem();
   private final IntakeSubsystem s_Intake = new IntakeSubsystem();
@@ -59,7 +64,6 @@ public class RobotContainer {
     toggleIntake.whenHeld(new ToggleIntake(s_Intake));
     toggleTower.whenHeld(new ToggleTower(s_Tower, false));
     reverseTower.whenHeld(new ToggleTower(s_Tower, true));
-    
   }
 
   /**
