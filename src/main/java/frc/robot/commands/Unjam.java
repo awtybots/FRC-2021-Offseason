@@ -9,7 +9,7 @@ public class Unjam extends StartEndCommand {
   public Unjam(IndexerSubsystem s_Indexer, TowerSubsystem s_Tower) {
     super(() -> {
       s_Indexer.unjam();
-      s_Tower.unjam();
+      s_Tower.startForUnjamming();
     }, () -> {
       s_Indexer.stop();
       s_Tower.stop();

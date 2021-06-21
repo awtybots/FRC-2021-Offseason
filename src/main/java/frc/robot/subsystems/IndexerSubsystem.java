@@ -27,7 +27,7 @@ public class IndexerSubsystem extends SubsystemBase {
     rightMotor.set(ControlMode.PercentOutput, Indexer.rightSpeed * x);
   }
 
-  public void intake() {
+  public void start() {
     run(1.0);
   }
 

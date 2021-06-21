@@ -83,6 +83,11 @@ public class TurretSubsystem extends SubsystemBase {
     States.turretState = TurretState.targeting;
   }
 
+  public boolean isAtGoal() {
+    double angleError = turret.getClosedLoopError() / 2048.0 * Turret.pulleyRatio * 360.0;
+    return Math.abs(angleError) < Turret.angleAcceptableError;
+  }
+
   public void disable() {
     States.turretState = TurretState.disabled;
   }
