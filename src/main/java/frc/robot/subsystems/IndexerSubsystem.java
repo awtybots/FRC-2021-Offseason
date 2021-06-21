@@ -15,17 +15,27 @@ public class IndexerSubsystem extends SubsystemBase {
   private TalonSRX rightMotor;
 
   public IndexerSubsystem() {
-    leftMotor = new TalonSRX(0);
-    rightMotor = new TalonSRX(0);
+    leftMotor = new TalonSRX(Indexer.leftMotorID);
+    rightMotor = new TalonSRX(Indexer.rightMotorID);
+    rightMotor.setInverted(true);
+
+    stop();
   }
 
-  public void run() {
-    leftMotor.set(ControlMode.PercentOutput, Indexer.leftSpeed);
-    rightMotor.set(ControlMode.PercentOutput, Indexer.rightSpeed);
+  private void run(double x) {
+    leftMotor.set(ControlMode.PercentOutput, Indexer.leftSpeed * x);
+    rightMotor.set(ControlMode.PercentOutput, Indexer.rightSpeed * x);
+  }
+
+  public void intake() {
+    run(1.0);
+  }
+
+  public void unjam() {
+    run(-1.0);
   }
 
   public void stop() {
-    leftMotor.set(ControlMode.PercentOutput, 0);
-    rightMotor.set(ControlMode.PercentOutput, 0);
+    run(0.0);
   }
 }

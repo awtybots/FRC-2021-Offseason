@@ -30,7 +30,10 @@ public final class Constants {
 
   public static final class Tower {
     public static final int motorID = 0; // TODO
-    public static final double speed = 0.8;
+
+    public static final double intakingSpeed = 0.3;
+    public static final double shootingSpeed = 0.8;
+    public static final double unjammingSpeed = -0.8;
   }
 
   public static final class Indexer {
@@ -54,8 +57,11 @@ public final class Constants {
 
   public static final class Turret {
     public static final int motorID = 0;
-    public static final int minAngle = -45;
-    public static final int maxAngle = 45;
+
+    public static final double homeAngle = 180;
+    public static final double minAngle = 135;
+    public static final double maxAngle = 225;
+
     public static final double pulleyRatio = 1.0;
     public static final double maxSpeed = 0.5;
   }

@@ -6,19 +6,27 @@ package frc.robot;
 
 public final class States {
   public static enum ShooterState {
-    notCalibrated,
+    calibrating,
     disabled,
     standby,
-    tracking,
+    targeting,
   }
 
   public static enum TurretState {
-    notCalibrated,
+    calibrating,
     disabled,
-    standby,
-    tracking,
+    home,
+    targeting,
+  }
+
+  public static enum TowerState {
+    idle,
+    intaking,
+    shooting,
+    unjamming,
   }
 
   public static ShooterState shooterState = ShooterState.disabled;
   public static TurretState turretState = TurretState.disabled;
+  public static TowerState towerState = TowerState.idle;
 }

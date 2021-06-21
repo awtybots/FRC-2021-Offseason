@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class DriveCommand extends CommandBase {
+public class ArcadeDrive extends CommandBase {
 
-  private DrivetrainSubsystem m_robotDrive;
+  private DrivetrainSubsystem s_Drivetrain;
   private Joystick controller;
   private int speedAxis;
   private int rotationAxis;
 
-  public DriveCommand(
-      DrivetrainSubsystem m_robotDrive, Joystick controller, int speedAxis, int rotationAxis) {
-    this.m_robotDrive = m_robotDrive;
-    addRequirements(m_robotDrive);
+  public ArcadeDrive(
+      DrivetrainSubsystem s_Drivetrain, Joystick controller, int speedAxis, int rotationAxis) {
+    this.s_Drivetrain = s_Drivetrain;
+    addRequirements(s_Drivetrain);
 
     this.controller = controller;
     this.speedAxis = speedAxis;
@@ -31,6 +31,6 @@ public class DriveCommand extends CommandBase {
     double speed = controller.getRawAxis(speedAxis);
     double rotation = controller.getRawAxis(rotationAxis);
 
-    m_robotDrive.drive(speed, rotation);
+    s_Drivetrain.drive(speed, rotation);
   }
 }

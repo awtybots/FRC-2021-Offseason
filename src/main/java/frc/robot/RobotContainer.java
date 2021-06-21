@@ -8,14 +8,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.ManualShoot;
-import frc.robot.commands.ToggleIntake;
-import frc.robot.commands.ToggleTower;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.TowerSubsystem;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,7 +26,7 @@ public class RobotContainer {
   private final int rotationAxis = XboxController.Axis.kRightX.value;
 
   /* Driver Buttons */
-  private final JoystickButton toggleIntake =
+  private final JoystickButton intakeBalls =
       new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);
 
   /* Operator Buttons */
@@ -42,31 +36,28 @@ public class RobotContainer {
       new JoystickButton(operator, XboxController.Button.kX.value);
   private final JoystickButton longShot =
       new JoystickButton(operator, XboxController.Button.kB.value);
-  private final JoystickButton toggleTower =
-      new JoystickButton(operator, XboxController.Button.kBumperRight.value);
-  private final JoystickButton toggleIndexer =
-      new JoystickButton(operator, XboxController.Axis.kLeftTrigger.value);
-  private final JoystickButton reverseTower =
-      new JoystickButton(operator, XboxController.Button.kBumperRight.value);
+
+  private final JoystickButton unjam =
+      new JoystickButton(operator, XboxController.Button.kBumperLeft.value);
 
   /* Subsystems*/
   private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
   private final IntakeSubsystem s_Intake = new IntakeSubsystem();
+  private final IndexerSubsystem s_Indexer = new IndexerSubsystem();
   private final TowerSubsystem s_Tower = new TowerSubsystem();
   private final ShooterSubsystem s_Shooter = new ShooterSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    s_Drive.setDefaultCommand(new DriveCommand(s_Drive, driver, speedAxis, rotationAxis));
+    s_Drive.setDefaultCommand(new ArcadeDrive(s_Drive, driver, speedAxis, rotationAxis));
 
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    toggleIntake.whenHeld(new ToggleIntake(s_Intake));
+    intakeBalls.whenHeld(new IntakeBalls(s_Intake, s_Indexer, s_Tower));
 
-    toggleTower.whenHeld(new ToggleTower(s_Tower, false));
-    reverseTower.whenHeld(new ToggleTower(s_Tower, true));
+    unjam.whenHeld(new Unjam(s_Indexer, s_Tower));
     layupShot.whenHeld(new ManualShoot(s_Shooter, 3700, 76));
     midrangeShot.whenHeld(new ManualShoot(s_Shooter, 4200, 58));
     longShot.whenHeld(new ManualShoot(s_Shooter, 5600, 50));

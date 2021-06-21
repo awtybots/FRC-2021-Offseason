@@ -5,19 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.States;
-import frc.robot.States.ShooterState;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ManualShoot extends StartEndCommand {
-  public ManualShoot(ShooterSubsystem s_Shooter, int rpm, int launchAngle) {
+  public ManualShoot(ShooterSubsystem s_Shooter, int flywheelRpm, int hoodLaunchAngle) {
     super(
-        () -> {
-          States.shooterState = ShooterState.tracking;
-          s_Shooter.setFlywheelRPM(rpm);
-          s_Shooter.setHoodLaunchAngle(launchAngle);
-        },
-        () -> States.shooterState = ShooterState.disabled,
+        () -> s_Shooter.setTarget(flywheelRpm, hoodLaunchAngle),
+        () -> s_Shooter.standby(),
         s_Shooter);
   }
 }

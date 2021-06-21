@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Shooter;
+import frc.robot.States.ShooterState;
 import frc.robot.States;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -22,6 +23,7 @@ public class ShooterSubsystem extends SubsystemBase {
    */
   private TalonFX flywheel;
   private TalonSRX hood;
+  private double[] setpoints;
 
   public ShooterSubsystem() {
     flywheel = new TalonFX(Shooter.flywheelMotorID);
@@ -34,7 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     hood = new TalonSRX(Shooter.hoodMotorID);
     hood.configFactoryDefault();
-    hood.setNeutralMode(NeutralMode.Coast);
+    hood.setNeutralMode(NeutralMode.Brake);
     hood.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     hood.setSelectedSensorPosition(0 /* angleToHoodPosition(maxLaunchAngle) */);
     hood.config_kP(0, 0.0); // TODO
@@ -55,13 +57,13 @@ public class ShooterSubsystem extends SubsystemBase {
     return revs * 4096.0; // 4096 ticks per rev on CTRE Mag Encoder
   }
 
-  public void setFlywheelRPM(double rpm) {
+  private void setFlywheelRPM(double rpm) {
     if (0 > rpm || rpm > Shooter.flywheelMaxRPM) return;
     if (rpm != 0) flywheel.set(ControlMode.Velocity, rpmToFlywheelVelocity(rpm));
     else flywheel.set(ControlMode.PercentOutput, 0);
   }
 
-  public void setHoodLaunchAngle(double angle) {
+  private void setHoodLaunchAngle(double angle) {
     if (Shooter.minHoodLaunchAngle > angle || Shooter.maxHoodLaunchAngle < angle) return;
     hood.set(ControlMode.Position, angleToHoodPosition(angle));
   }
@@ -69,12 +71,11 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     switch (States.shooterState) {
-      case tracking:
-        int[] target = getTargetState();
-        setFlywheelRPM(target[0]);
-        setHoodLaunchAngle(target[1]);
+      case targeting:
+        setFlywheelRPM(setpoints[0]);
+        setHoodLaunchAngle(setpoints[1]);
         break;
-      case notCalibrated:
+      case calibrating:
         // TODO add goal RPM, goal angle to dashboard for testing
         // TODO add PID values for tuning
         break;
@@ -90,7 +91,20 @@ public class ShooterSubsystem extends SubsystemBase {
     }
   }
 
-  private int[] getTargetState() {
-    return new int[] {3000, 70}; // TODO actually get desired RPM and angle
+
+
+  // PUBLIC METHODS
+
+  public void setTarget(double flywheelRpm, double hoodLaunchAngle) {
+    setpoints = new double[] {flywheelRpm, hoodLaunchAngle};
+    States.shooterState = ShooterState.targeting;
+  }
+
+  public void standby() {
+    States.shooterState = ShooterState.standby;
+  }
+
+  public void disable() {
+    States.shooterState = ShooterState.disabled;
   }
 }
