@@ -13,7 +13,8 @@ public class Unjam extends StartEndCommand {
     }, () -> {
       s_Indexer.stop();
       s_Tower.stop();
-    }, s_Indexer, s_Tower);
+    },
+    s_Indexer,
+    s_Tower);
   }
-  
 }

@@ -20,6 +20,9 @@ public class IntakeBalls extends StartEndCommand {
       s_Intake.toggle(false, false);
       s_Indexer.stop();
       s_Tower.stop();
-    }, s_Intake, s_Indexer, s_Tower);
+    },
+    s_Intake,
+    s_Indexer,
+    s_Tower);
   }
 }
