@@ -24,14 +24,14 @@ public class RobotContainer {
   private final Controller operator = new Controller(1);
 
   /* Driver Buttons */
-  private final Button intakeBalls = driver.trgR;
+  private final Button intakeBalls = driver.triggerRight;
 
   /* Operator Buttons */
-  private final JoystickButton layupShot = operator.btnA;
-  private final JoystickButton midrangeShot = operator.btnX;
-  private final JoystickButton longShot = operator.btnB;
+  private final JoystickButton layupShot = operator.buttonA;
+  private final JoystickButton midrangeShot = operator.buttonX;
+  private final JoystickButton longShot = operator.buttonB;
 
-  private final JoystickButton unjam = operator.bmpL;
+  private final JoystickButton unjam = operator.bumperLeft;
 
   /* Subsystems*/
   private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
