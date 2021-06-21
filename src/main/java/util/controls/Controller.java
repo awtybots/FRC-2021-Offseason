@@ -36,8 +36,8 @@ public class Controller {
   public Button trgL = new Button(() -> getTrigger(Hand.kLeft) > 0);
   public Button trgR = new Button(() -> getTrigger(Hand.kRight) > 0);
 
-  public ControllerValues getControllerValues() {
-    return new ControllerValues(
+  public ControllerAxes getAxes() {
+    return new ControllerAxes(
         getX(Hand.kLeft),
         getY(Hand.kLeft),
         getX(Hand.kRight),

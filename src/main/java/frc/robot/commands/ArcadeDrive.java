@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import util.controls.Controller;
-import util.controls.ControllerValues;
+import util.controls.ControllerAxes;
 
 /** An example command that uses an example subsystem. */
 public class ArcadeDrive extends CommandBase {
@@ -24,7 +24,7 @@ public class ArcadeDrive extends CommandBase {
 
   @Override
   public void execute() {
-    ControllerValues currentInput = controller.getControllerValues();
+    ControllerAxes currentInput = controller.getAxes();
     double speed = currentInput.leftStickY;
     double rotation = currentInput.rightStickY;
 

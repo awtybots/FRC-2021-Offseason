@@ -1,6 +1,6 @@
 package util.controls;
 
-public class ControllerValues {
+public class ControllerAxes {
   public double leftStickX = 0.0;
   public double leftStickY = 0.0;
   public double rightStickX = 0.0;
@@ -8,9 +8,9 @@ public class ControllerValues {
   public double leftTrigger = 0.0;
   public double rightTrigger = 0.0;
 
-  public ControllerValues() {}
+  public ControllerAxes() {}
 
-  public ControllerValues(
+  public ControllerAxes(
       double leftStickX,
       double leftStickY,
       double rightStickX,
