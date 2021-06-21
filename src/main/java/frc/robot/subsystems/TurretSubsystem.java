@@ -10,8 +10,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants.Turret;
-import frc.robot.States.TurretState;
 import frc.robot.States;
+import frc.robot.States.TurretState;
 
 public class TurretSubsystem extends SubsystemBase {
 
@@ -22,7 +22,8 @@ public class TurretSubsystem extends SubsystemBase {
     turret = new TalonSRX(Turret.motorID); // TODO
     turret.configFactoryDefault();
     turret.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    turret.setSelectedSensorPosition(Turret.homeAngle / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
+    turret.setSelectedSensorPosition(
+        Turret.homeAngle / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
     turret.config_kP(0, 0); // TODO
     turret.config_kI(0, 0);
     turret.config_kD(0, 0);
@@ -31,7 +32,8 @@ public class TurretSubsystem extends SubsystemBase {
 
   private double getCurrentAngle() {
     double encoderPos = turret.getSelectedSensorPosition();
-    double currentAngle = (encoderPos / 2048.0) * Turret.pulleyRatio * 360.0; // TODO conversions math util
+    double currentAngle =
+        (encoderPos / 2048.0) * Turret.pulleyRatio * 360.0; // TODO conversions math util
     return currentAngle;
   }
 
@@ -41,7 +43,9 @@ public class TurretSubsystem extends SubsystemBase {
       case home:
         setpoint = Turret.homeAngle; // home state is just targeting home
       case targeting:
-        turret.set(ControlMode.Position, setpoint / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
+        turret.set(
+            ControlMode.Position,
+            setpoint / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
         break;
       case calibrating:
         // TODO SmartDashboard PID calibrating suite
@@ -53,8 +57,6 @@ public class TurretSubsystem extends SubsystemBase {
     }
   }
 
-
-
   // PUBLIC METHODS
 
   public void returnToHome() {
@@ -63,7 +65,7 @@ public class TurretSubsystem extends SubsystemBase {
 
   /**
    * Rotate the turret by a certain angle.
-   * 
+   *
    * @param angleDelta relative angle to rotate by, positive is clockwise
    */
   public void rotateBy(double angleDelta) {
@@ -72,12 +74,12 @@ public class TurretSubsystem extends SubsystemBase {
 
   /**
    * Rotate the turret to a certain angle.
-   * 
+   *
    * @param angle absolute angle to rotate to, where 180 is straight ahead, 90 is left, 270 is right
    */
   public void rotateTo(double angle) {
     setpoint = angle % 360;
-    if(setpoint < 0) setpoint += 360;
+    if (setpoint < 0) setpoint += 360;
     setpoint = MathUtil.clamp(setpoint, Turret.minAngle, Turret.maxAngle);
 
     States.turretState = TurretState.targeting;
@@ -86,5 +88,4 @@ public class TurretSubsystem extends SubsystemBase {
   public void disable() {
     States.turretState = TurretState.disabled;
   }
-
 }
