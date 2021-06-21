@@ -13,10 +13,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  private final TalonSRX motor = new TalonSRX(Intake.motorID);
-  private final DoubleSolenoid pistons = new DoubleSolenoid(Intake.pistonDown, Intake.pistonUp);
+  private final TalonSRX motor;
+  private final DoubleSolenoid pistons;
 
   public IntakeSubsystem() {
+    pistons = new DoubleSolenoid(Intake.pistonDown, Intake.pistonUp);
+    motor = new TalonSRX(Intake.motorID);
     motor.configFactoryDefault();
     toggle(false, false);
   }

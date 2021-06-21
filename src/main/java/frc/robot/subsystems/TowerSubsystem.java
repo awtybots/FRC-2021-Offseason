@@ -12,9 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TowerSubsystem extends SubsystemBase {
 
-  private final TalonSRX motor = new TalonSRX(Tower.motorID);
+  private final TalonSRX motor;
 
   public TowerSubsystem() {
+    motor = new TalonSRX(Tower.motorID);
     motor.configFactoryDefault();
     toggle(false);
   }

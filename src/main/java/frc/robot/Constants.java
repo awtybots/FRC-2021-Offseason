@@ -22,26 +22,41 @@ public final class Constants {
   }
 
   public static final class Intake {
-    public static final double speed = 0.6;
     public static final int motorID = 5;
+    public static final double speed = 0.6;
     public static final int pistonDown = 5;
     public static final int pistonUp = 4;
   }
 
   public static final class Tower {
-    public static final double speed = 0.8;
     public static final int motorID = 0; // TODO
+    public static final double speed = 0.8;
+  }
+
+  public static final class Indexer {
+    public static final int leftMotorID = 0; // TODO
+    public static final int rightMotorID = 0;
+    public static final double leftSpeed = 0.0;
+    public static final double rightSpeed = 0.0;
   }
 
   public static final class Shooter {
+    public static final int flywheelMotorID = 0; // TODO
     public static final double flywheelGearRatio = 1.0; // TODO
-    public static final int flywheelMotorID = 1; // TODO
     public static final int readyToShootRPMThreshold = 50;
     public static final int flywheelMaxRPM = 6400;
 
+    public static final int hoodMotorID = 0; // TODO
     public static final double hoodGearRatio = 1.0; // TODO
-    public static final int hoodMotorID = 1; // TODO
     public static final int minHoodLaunchAngle = 56;
     public static final int maxHoodLaunchAngle = 76;
+  }
+
+  public static final class Turret {
+    public static final int motorID = 0;
+    public static final int minAngle = -45;
+    public static final int maxAngle = 45;
+    public static final double pulleyRatio = 1.0;
+    public static final double maxSpeed = 0.5;
   }
 }

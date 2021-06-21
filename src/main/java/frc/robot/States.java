@@ -15,6 +15,7 @@ public final class States {
   public static enum TurretState {
     notCalibrated,
     disabled,
+    standby,
     tracking,
   }
 

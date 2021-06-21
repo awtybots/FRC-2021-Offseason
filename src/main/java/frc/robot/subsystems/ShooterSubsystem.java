@@ -20,10 +20,11 @@ public class ShooterSubsystem extends SubsystemBase {
    * - set PID + goal for both
    * - tune shots into interpolatable map
    */
-  private TalonFX flywheel = new TalonFX(Shooter.flywheelMotorID);
-  private TalonSRX hood = new TalonSRX(Shooter.hoodMotorID);
+  private TalonFX flywheel;
+  private TalonSRX hood;
 
   public ShooterSubsystem() {
+    flywheel = new TalonFX(Shooter.flywheelMotorID);
     flywheel.configFactoryDefault();
     flywheel.setNeutralMode(NeutralMode.Coast);
     flywheel.config_kP(0, 0.0); // TODO
@@ -31,6 +32,7 @@ public class ShooterSubsystem extends SubsystemBase {
     flywheel.config_kD(0, 0.0);
     flywheel.config_kF(0, 0.0);
 
+    hood = new TalonSRX(Shooter.hoodMotorID);
     hood.configFactoryDefault();
     hood.setNeutralMode(NeutralMode.Coast);
     hood.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
@@ -53,12 +55,13 @@ public class ShooterSubsystem extends SubsystemBase {
     return revs * 4096.0; // 4096 ticks per rev on CTRE Mag Encoder
   }
 
-  private void setFlywheelRPM(double rpm) {
+  public void setFlywheelRPM(double rpm) {
     if (0 > rpm || rpm > Shooter.flywheelMaxRPM) return;
-    flywheel.set(ControlMode.Velocity, rpmToFlywheelVelocity(rpm));
+    if (rpm != 0) flywheel.set(ControlMode.Velocity, rpmToFlywheelVelocity(rpm));
+    else flywheel.set(ControlMode.PercentOutput, 0);
   }
 
-  private void setHoodLaunchAngle(double angle) {
+  public void setHoodLaunchAngle(double angle) {
     if (Shooter.minHoodLaunchAngle > angle || Shooter.maxHoodLaunchAngle < angle) return;
     hood.set(ControlMode.Position, angleToHoodPosition(angle));
   }
@@ -76,8 +79,8 @@ public class ShooterSubsystem extends SubsystemBase {
         // TODO add PID values for tuning
         break;
       case standby:
-        flywheel.set(ControlMode.PercentOutput, 0);
-        hood.set(ControlMode.Position, Shooter.maxHoodLaunchAngle);
+        setFlywheelRPM(0);
+        setHoodLaunchAngle(Shooter.maxHoodLaunchAngle);
         break;
       case disabled:
       default:
