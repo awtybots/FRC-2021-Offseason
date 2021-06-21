@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 public class Controller {
   private XboxController controller;
-  private double kDeadzoneStick = 0.2;
+  private double kDeadzoneStick = 0.08;
   private double kDeadzoneTrigger = 0.1;
 
   public Controller(int port) {
@@ -36,25 +36,15 @@ public class Controller {
   public Button trgL = new Button(() -> getTrigger(Hand.kLeft) > 0);
   public Button trgR = new Button(() -> getTrigger(Hand.kRight) > 0);
 
-  public ControllerAxes getAxes() {
-    return new ControllerAxes(
-        getX(Hand.kLeft),
-        getY(Hand.kLeft),
-        getX(Hand.kRight),
-        getY(Hand.kRight),
-        getTrigger(Hand.kLeft),
-        getTrigger(Hand.kRight));
-  }
-
   private double getTrigger(Hand hand) {
     return deadzone(controller.getTriggerAxis(hand), kDeadzoneTrigger);
   }
 
-  private double getX(Hand hand) {
+  public double getX(Hand hand) {
     return deadzone(controller.getX(hand), kDeadzoneStick);
   }
 
-  private double getY(Hand hand) {
+  public double getY(Hand hand) {
     return deadzone(-controller.getY(hand), kDeadzoneStick);
   }
 

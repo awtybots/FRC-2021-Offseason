@@ -4,10 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import util.controls.Controller;
-import util.controls.ControllerAxes;
 
 /** An example command that uses an example subsystem. */
 public class ArcadeDrive extends CommandBase {
@@ -16,17 +16,15 @@ public class ArcadeDrive extends CommandBase {
   private Controller controller;
 
   public ArcadeDrive(DrivetrainSubsystem s_Drivetrain, Controller controller) {
+    this.controller = controller;
     this.s_Drivetrain = s_Drivetrain;
     addRequirements(s_Drivetrain);
-
-    this.controller = controller;
   }
 
   @Override
   public void execute() {
-    ControllerAxes currentInput = controller.getAxes();
-    double speed = currentInput.leftStickY;
-    double rotation = currentInput.rightStickY;
+    double speed = controller.getY(Hand.kLeft);
+    double rotation = controller.getX(Hand.kRight);
 
     s_Drivetrain.drive(speed, rotation);
   }
