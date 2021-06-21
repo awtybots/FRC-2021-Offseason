@@ -49,7 +49,7 @@ public class TowerSubsystem extends SubsystemBase {
         // TODO check for limit switch and stop if full
         break;
 
-      default:  
+      default:
         break;
     }
   }

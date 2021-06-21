@@ -4,12 +4,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import util.controls.Controller;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,27 +18,18 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Joystick driver = new Joystick(0);
-  private final Joystick operator = new Joystick(1);
-
-  /* Driver Controls */
-  private final int speedAxis = XboxController.Axis.kLeftY.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  private final Controller driver = new Controller(0);
+  private final Controller operator = new Controller(1);
 
   /* Driver Buttons */
-  private final JoystickButton intakeBalls =
-      new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);
+  private final Button intakeBalls = driver.trgR;
 
   /* Operator Buttons */
-  private final JoystickButton layupShot =
-      new JoystickButton(operator, XboxController.Button.kA.value);
-  private final JoystickButton midrangeShot =
-      new JoystickButton(operator, XboxController.Button.kX.value);
-  private final JoystickButton longShot =
-      new JoystickButton(operator, XboxController.Button.kB.value);
+  private final JoystickButton layupShot = operator.btnA;
+  private final JoystickButton midrangeShot = operator.btnX;
+  private final JoystickButton longShot = operator.btnB;
 
-  private final JoystickButton unjam =
-      new JoystickButton(operator, XboxController.Button.kBumperLeft.value);
+  private final JoystickButton unjam = operator.bmpL;
 
   /* Subsystems*/
   private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
@@ -47,9 +38,8 @@ public class RobotContainer {
   private final TowerSubsystem s_Tower = new TowerSubsystem();
   private final ShooterSubsystem s_Shooter = new ShooterSubsystem();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    s_Drive.setDefaultCommand(new ArcadeDrive(s_Drive, driver, speedAxis, rotationAxis));
+    s_Drive.setDefaultCommand(new ArcadeDrive(s_Drive, driver));
 
     configureButtonBindings();
   }
