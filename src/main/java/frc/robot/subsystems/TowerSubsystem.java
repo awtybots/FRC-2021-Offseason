@@ -22,17 +22,17 @@ public class TowerSubsystem extends SubsystemBase {
     stop();
   }
 
-  public void intake() {
+  public void startForIntaking() {
     States.towerState = TowerState.intaking;
     motor.set(ControlMode.PercentOutput, Tower.intakingSpeed);
   }
 
-  public void shoot() {
+  public void startForShooting() {
     States.towerState = TowerState.shooting;
     motor.set(ControlMode.PercentOutput, Tower.shootingSpeed);
   }
 
-  public void unjam() {
+  public void startForUnjamming() {
     States.towerState = TowerState.unjamming;
     motor.set(ControlMode.PercentOutput, Tower.unjammingSpeed);
   }

@@ -38,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
     hood.configFactoryDefault();
     hood.setNeutralMode(NeutralMode.Brake);
     hood.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    hood.setSelectedSensorPosition(0 /* angleToHoodPosition(maxLaunchAngle) */);
+    hood.setSelectedSensorPosition(angleToHoodPosition(Shooter.maxHoodLaunchAngle));
     hood.config_kP(0, 0.0); // TODO
     hood.config_kI(0, 0.0);
     hood.config_kD(0, 0.0);
@@ -52,13 +52,13 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   private static double angleToHoodPosition(double launchAngle) {
-    double revs = (90 - launchAngle) / 360.0; // hood angle to revs
+    double revs = launchAngle / 360.0; // hood angle to revs
     revs *= Shooter.hoodGearRatio;
     return revs * 4096.0; // 4096 ticks per rev on CTRE Mag Encoder
   }
 
   private void setFlywheelRPM(double rpm) {
-    if (0 > rpm || rpm > Shooter.flywheelMaxRPM) return;
+    if (0 > rpm || rpm > Shooter.flywheelMaxRpm) return;
     if (rpm != 0) flywheel.set(ControlMode.Velocity, rpmToFlywheelVelocity(rpm));
     else flywheel.set(ControlMode.PercentOutput, 0);
   }
@@ -96,6 +96,18 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setTarget(double flywheelRpm, double hoodLaunchAngle) {
     setpoints = new double[] {flywheelRpm, hoodLaunchAngle};
     States.shooterState = ShooterState.targeting;
+  }
+
+  public boolean isHoodAtGoal() {
+    double hoodLaunchAngleError =
+        hood.getClosedLoopError() / 4096.0 / Shooter.hoodGearRatio * 360.0;
+    return Math.abs(hoodLaunchAngleError) < Shooter.hoodLaunchAngleAcceptableError;
+  }
+
+  public boolean isFlywheelAtGoal() {
+    double flywheelRpmError =
+        flywheel.getClosedLoopError() / 2048.0 * 10.0 / Shooter.flywheelGearRatio * 60.0;
+    return Math.abs(flywheelRpmError) < Shooter.flywheelRpmAcceptableError;
   }
 
   public void standby() {

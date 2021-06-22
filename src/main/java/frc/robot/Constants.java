@@ -46,13 +46,15 @@ public final class Constants {
   public static final class Shooter {
     public static final int flywheelMotorID = 0; // TODO
     public static final double flywheelGearRatio = 1.0; // TODO
-    public static final int readyToShootRPMThreshold = 50;
-    public static final int flywheelMaxRPM = 6400;
+    public static final double flywheelMaxRpm = 6400.0;
+    public static final double flywheelRpmAcceptableError = 50.0;
+    public static final double flywheelRadius = 0.051; // meters
 
     public static final int hoodMotorID = 0; // TODO
     public static final double hoodGearRatio = 1.0; // TODO
-    public static final int minHoodLaunchAngle = 56;
-    public static final int maxHoodLaunchAngle = 76;
+    public static final double minHoodLaunchAngle = 56.0;
+    public static final double maxHoodLaunchAngle = 76.0;
+    public static final double hoodLaunchAngleAcceptableError = 1.0; // TODO
   }
 
   public static final class Turret {
@@ -61,8 +63,22 @@ public final class Constants {
     public static final double homeAngle = 180;
     public static final double minAngle = 135;
     public static final double maxAngle = 225;
+    public static final double angleAcceptableError = 2.0; // TODO
 
     public static final double pulleyRatio = 1.0;
     public static final double maxSpeed = 0.5;
+  }
+
+  public static final class Limelight {
+    public static final double mountingHeight = 0.531;
+    public static final double mountingAngle = 23;
+  }
+
+  public static final class Field {
+    public static final double powerPortHeight = 2.496; // meters
+    public static final double powerPortVisionTargetHeight = 2.496 - 0.216; // meters
+
+    public static final double ballMass = 0.142; // kg
+    public static final double ballRadius = 0.178; // meters
   }
 }

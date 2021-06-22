@@ -15,8 +15,8 @@ public class IntakeBalls extends StartEndCommand {
     super(
         () -> {
           s_Intake.toggle(true, true);
-          s_Indexer.intake();
-          s_Tower.intake();
+          s_Indexer.start();
+          s_Tower.startForIntaking();
         },
         () -> {
           s_Intake.toggle(false, false);
