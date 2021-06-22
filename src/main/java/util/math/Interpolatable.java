@@ -33,9 +33,8 @@ public abstract class Interpolatable<T> {
       @Override
       public Pair<Double, Double> interpolate(Pair<Double, Double> endValue, double t) {
         return new Pair<Double, Double>(
-          super.value.getFirst() + t * (endValue.getFirst() - super.value.getFirst()),
-          super.value.getSecond() + t * (endValue.getSecond() - super.value.getSecond())
-          );
+            super.value.getFirst() + t * (endValue.getFirst() - super.value.getFirst()),
+            super.value.getSecond() + t * (endValue.getSecond() - super.value.getSecond()));
       }
     };
   }

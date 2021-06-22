@@ -5,22 +5,22 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight implements Camera {
 
-  private double mountHeight;
-  private double mountAngle;
+  private double mountingHeight;
+  private double mountingAngle;
 
   private final NetworkTable netTable = NetworkTableInstance.getDefault().getTable("limelight");
 
-  public Limelight(double mountHeight, double mountAngle) {
-    this.mountAngle = mountAngle;
-    this.mountHeight = mountHeight;
+  public Limelight(double mountingHeight, double mountingAngle) {
+    this.mountingAngle = mountingAngle;
+    this.mountingHeight = mountingHeight;
   }
 
   public double getMountHeight() {
-    return mountHeight;
+    return mountingHeight;
   }
 
   public double getMountAngle() {
-    return mountAngle;
+    return mountingAngle;
   }
 
   public boolean hasVisibleTarget() {

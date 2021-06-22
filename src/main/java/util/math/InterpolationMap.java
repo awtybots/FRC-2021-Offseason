@@ -1,7 +1,7 @@
 package util.math;
 
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class InterpolationMap<T> {
   private TreeMap<Double, Interpolatable<T>> keyframes = new TreeMap<>();
@@ -13,7 +13,7 @@ public class InterpolationMap<T> {
   }
 
   public T get(double t) {
-    if(keyframes.isEmpty()) {
+    if (keyframes.isEmpty()) {
       return null;
     } else if (t <= keyframes.firstKey()) {
       return keyframes.firstEntry().getValue().get();
@@ -22,7 +22,7 @@ public class InterpolationMap<T> {
     }
 
     Interpolatable<T> value = keyframes.get(t);
-    if(value != null) return value.get();
+    if (value != null) return value.get();
 
     Entry<Double, Interpolatable<T>> a = keyframes.floorEntry(t);
     Entry<Double, Interpolatable<T>> b = keyframes.ceilingEntry(t);

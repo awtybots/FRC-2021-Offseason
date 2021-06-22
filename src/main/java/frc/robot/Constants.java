@@ -56,13 +56,15 @@ public final class Constants {
     public static final double maxHoodLaunchAngle = 76.0;
     public static final double hoodLaunchAngleAcceptableError = 1.0; // TODO
 
-    public static final double[][] autoShootInterpolationMap = new double[][] { // TODO
-      {0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0},
-    };
+    public static final double[][] autoShootInterpolationMap =
+        new double[][] {
+          // { distance (m), flywheel rpm, launch angle }
+          {0.5, 3700.0, 76.0}, // TODO placeholder values
+          {1.0, 3900.0, 74.0},
+          {1.5, 4200.0, 71.0},
+          {2.0, 4500.0, 68.0},
+          {2.5, 5000.0, 62.0},
+        };
   }
 
   public static final class Turret {
