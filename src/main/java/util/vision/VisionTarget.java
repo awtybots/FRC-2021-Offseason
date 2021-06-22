@@ -3,12 +3,12 @@ package util.vision;
 import util.math.Vector2;
 
 public class VisionTarget {
-  private final Camera camera;
+  private final Limelight limelight;
   private final double visionTargetY;
   private final double goalY;
 
-  public VisionTarget(Camera camera, double visionTargetHeight, double goalHeight) {
-    this.camera = camera;
+  public VisionTarget(Limelight limelight, double visionTargetHeight, double goalHeight) {
+    this.limelight = limelight;
     this.visionTargetY = visionTargetHeight;
     this.goalY = goalHeight;
   }
@@ -20,14 +20,14 @@ public class VisionTarget {
    * @return The displacement vector, or null if no vision target is detected.
    */
   public Vector2 getGoalDisplacement() {
-    if (!camera.hasVisibleTarget()) return null;
+    if (!limelight.hasVisibleTarget()) return null;
 
-    double angleY = camera.targetYOffset();
+    double angleY = limelight.targetYOffset();
 
-    double opposite = visionTargetY - camera.getMountHeight();
-    double tangent = Math.tan(Math.toRadians(camera.getMountAngle() + angleY));
+    double opposite = visionTargetY - limelight.getMountingHeight();
+    double tangent = Math.tan(Math.toRadians(limelight.getMountingAngle() + angleY));
     double adjacent = opposite / tangent;
 
-    return new Vector2(adjacent, goalY - camera.getMountHeight());
+    return new Vector2(adjacent, goalY - limelight.getMountingHeight());
   }
 }

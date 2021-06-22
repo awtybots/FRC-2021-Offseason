@@ -3,7 +3,7 @@ package util.vision;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class Limelight implements Camera {
+public class Limelight {
 
   private double mountingHeight;
   private double mountingAngle;
@@ -15,11 +15,11 @@ public class Limelight implements Camera {
     this.mountingHeight = mountingHeight;
   }
 
-  public double getMountHeight() {
+  public double getMountingHeight() {
     return mountingHeight;
   }
 
-  public double getMountAngle() {
+  public double getMountingAngle() {
     return mountingAngle;
   }
 
