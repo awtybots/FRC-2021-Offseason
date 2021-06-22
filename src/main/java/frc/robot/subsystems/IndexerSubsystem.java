@@ -31,7 +31,7 @@ public class IndexerSubsystem extends SubsystemBase {
     run(1.0);
   }
 
-  public void unjam() {
+  public void startForUnjamming() {
     run(-1.0);
   }
 
