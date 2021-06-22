@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpiutil.math.Pair;
 import frc.robot.Constants.Field;
+import frc.robot.Constants.Shooter;
 import util.math.Interpolatable;
 import util.math.InterpolationMap;
 import util.math.ProjectileMotionSimulation;
@@ -38,7 +39,10 @@ public interface AutoShootSolver {
         new InterpolationMap<>();
 
     public AutoShootInterpolationSolver() {
-      interpolationMap.addKeyframe(0.5, Interpolatable.interpolatableDoublePair(1.0, 1.0));
+      for (double[] entry : Shooter.autoShootInterpolationMap) {
+        interpolationMap.addKeyframe(
+            entry[0], Interpolatable.interpolatableDoublePair(entry[1], entry[2]));
+      }
     }
 
     @Override
