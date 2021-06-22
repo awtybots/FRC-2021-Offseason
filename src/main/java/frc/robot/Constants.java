@@ -55,6 +55,14 @@ public final class Constants {
     public static final double minHoodLaunchAngle = 56.0;
     public static final double maxHoodLaunchAngle = 76.0;
     public static final double hoodLaunchAngleAcceptableError = 1.0; // TODO
+
+    public static final double[][] autoShootInterpolationMap = new double[][] { // TODO
+      {0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0},
+      {0.0, 0.0, 0.0},
+    };
   }
 
   public static final class Turret {
