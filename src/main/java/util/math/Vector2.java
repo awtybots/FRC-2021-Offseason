@@ -43,7 +43,7 @@ public class Vector2 {
    * @param magnitude The new magnitude.
    * @return The same Vector2 instance scaled to have the specified magnitude.
    */
-  public Vector2 withMagnitude(double magnitude) {
+  public Vector2 withMagnitude(double magnitude) { // ? consider private
     return scale(magnitude / getMagnitude());
   }
 
@@ -53,7 +53,7 @@ public class Vector2 {
    * @param magnitude The new magnitude.
    * @return The same Vector2 instance scaled to have the specified magnitude.
    */
-  public Vector2 setMagnitude(double magnitude) {
+  public Vector2 setMagnitude(double magnitude) { // * unused
     return mutate(withMagnitude(magnitude));
   }
 
@@ -78,7 +78,7 @@ public class Vector2 {
    * @param angle The new angle from the X+ axis, in degrees.
    * @return The same Vector2 instance with the specified angle and the same magnitude.
    */
-  public Vector2 setAngle(double angle) {
+  public Vector2 setAngle(double angle) { // * unused
     return mutate(withAngle(angle));
   }
 
@@ -98,7 +98,7 @@ public class Vector2 {
    * @param otherVector The Vector2 to subtract from the original.
    * @return A new Vector2 instance with the result.
    */
-  public Vector2 minus(Vector2 otherVector) {
+  public Vector2 minus(Vector2 otherVector) { // * unused
     return binaryOperator(otherVector, (a, b) -> a - b);
   }
 
@@ -118,7 +118,7 @@ public class Vector2 {
    * @param s The factor to scale by.
    * @return The same Vector2 instance with the applied scale.
    */
-  public Vector2 scale(double s) {
+  public Vector2 scale(double s) { // ? consider private
     return mutate(scaled(s));
   }
 
@@ -127,7 +127,7 @@ public class Vector2 {
    *
    * @return A new Vector2 instance with the applied inversion.
    */
-  public Vector2 inverse() {
+  public Vector2 inverse() { // ? consider private
     return unaryOperator(a -> -a);
   }
 
@@ -136,7 +136,7 @@ public class Vector2 {
    *
    * @return The same Vector2 instance with the applied inversion.
    */
-  public Vector2 invert() {
+  public Vector2 invert() { // * unused
     return mutate(inverse());
   }
 
@@ -146,7 +146,7 @@ public class Vector2 {
   }
 
   @Override
-  public String toString() {
+  public String toString() { // * unused
     StringBuilder sb = new StringBuilder();
     sb.append("(");
     sb.append(semiRound(x));
