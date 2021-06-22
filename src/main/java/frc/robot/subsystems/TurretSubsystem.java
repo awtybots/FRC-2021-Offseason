@@ -19,7 +19,7 @@ public class TurretSubsystem extends SubsystemBase {
   private double setpoint;
 
   public TurretSubsystem() {
-    turret = new TalonSRX(Turret.motorID); // TODO
+    turret = new TalonSRX(Turret.motorID);
     turret.configFactoryDefault();
     turret.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     turret.setSelectedSensorPosition(
