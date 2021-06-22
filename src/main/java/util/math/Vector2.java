@@ -43,7 +43,7 @@ public class Vector2 {
    * @param magnitude The new magnitude.
    * @return The same Vector2 instance scaled to have the specified magnitude.
    */
-  public Vector2 withMagnitude(double magnitude) { // ? consider private
+  public Vector2 withMagnitude(double magnitude) { // * unused
     return scale(magnitude / getMagnitude());
   }
 
@@ -118,7 +118,7 @@ public class Vector2 {
    * @param s The factor to scale by.
    * @return The same Vector2 instance with the applied scale.
    */
-  public Vector2 scale(double s) { // ? consider private
+  public Vector2 scale(double s) {
     return mutate(scaled(s));
   }
 
@@ -127,7 +127,7 @@ public class Vector2 {
    *
    * @return A new Vector2 instance with the applied inversion.
    */
-  public Vector2 inverse() { // ? consider private
+  public Vector2 inverse() { // * unused
     return unaryOperator(a -> -a);
   }
 
@@ -146,7 +146,7 @@ public class Vector2 {
   }
 
   @Override
-  public String toString() { // * unused
+  public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("(");
     sb.append(semiRound(x));
