@@ -99,12 +99,14 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isHoodAtGoal() {
-    double hoodLaunchAngleError = hood.getClosedLoopError() / 4096.0 / Shooter.hoodGearRatio * 360.0;
+    double hoodLaunchAngleError =
+        hood.getClosedLoopError() / 4096.0 / Shooter.hoodGearRatio * 360.0;
     return Math.abs(hoodLaunchAngleError) < Shooter.hoodLaunchAngleAcceptableError;
   }
 
   public boolean isFlywheelAtGoal() {
-    double flywheelRpmError = flywheel.getClosedLoopError() / 2048.0 * 10.0 / Shooter.flywheelGearRatio * 60.0;
+    double flywheelRpmError =
+        flywheel.getClosedLoopError() / 2048.0 * 10.0 / Shooter.flywheelGearRatio * 60.0;
     return Math.abs(flywheelRpmError) < Shooter.flywheelRpmAcceptableError;
   }
 

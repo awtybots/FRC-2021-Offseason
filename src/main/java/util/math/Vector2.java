@@ -21,9 +21,9 @@ public class Vector2 {
 
   /**
    * Construct a new Vector2 instance from polar coordinates.
-   * 
+   *
    * @param magnitude The magnitude.
-   * @param angle     The angle measured from the X+ axis, in degrees.
+   * @param angle The angle measured from the X+ axis, in degrees.
    * @return The constructed Vector2 instance.
    */
   public static Vector2 fromPolar(double magnitude, double angle) {
@@ -32,16 +32,14 @@ public class Vector2 {
     return new Vector2(x, y);
   }
 
-  /**
-   * @return The magnitude.
-   */
+  /** @return The magnitude. */
   public double getMagnitude() {
     return Math.sqrt(x * x + y * y);
   }
 
   /**
    * The original Vector2 instance remains unchanged.
-   * 
+   *
    * @param magnitude The new magnitude.
    * @return The same Vector2 instance scaled to have the specified magnitude.
    */
@@ -51,7 +49,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instance is mutated.
-   * 
+   *
    * @param magnitude The new magnitude.
    * @return The same Vector2 instance scaled to have the specified magnitude.
    */
@@ -59,19 +57,16 @@ public class Vector2 {
     return mutate(withMagnitude(magnitude));
   }
 
-  /**
-   * @return The angle measured from the X+ axis, in degrees.
-   */
+  /** @return The angle measured from the X+ axis, in degrees. */
   public double getAngle() {
     return Math.toDegrees(Math.atan2(y, x));
   }
 
   /**
    * The original Vector2 instance remains unchanged.
-   * 
+   *
    * @param angle The new angle from the X+ axis, in degrees.
-   * @return A new Vector2 instance with the specified angle and the same
-   *         magnitude.
+   * @return A new Vector2 instance with the specified angle and the same magnitude.
    */
   public Vector2 withAngle(double angle) {
     return Vector2.fromPolar(getMagnitude(), angle);
@@ -79,10 +74,9 @@ public class Vector2 {
 
   /**
    * The original Vector2 instance is mutated.
-   * 
+   *
    * @param angle The new angle from the X+ axis, in degrees.
-   * @return The same Vector2 instance with the specified angle and the same
-   *         magnitude.
+   * @return The same Vector2 instance with the specified angle and the same magnitude.
    */
   public Vector2 setAngle(double angle) {
     return mutate(withAngle(angle));
@@ -90,7 +84,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instances remain unchanged.
-   * 
+   *
    * @param otherVector The Vector2 to add to the original.
    * @return A new Vector2 instance with the result.
    */
@@ -100,7 +94,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instances remain unchanged.
-   * 
+   *
    * @param otherVector The Vector2 to subtract from the original.
    * @return A new Vector2 instance with the result.
    */
@@ -110,7 +104,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instance remains unchanged.
-   * 
+   *
    * @param s The factor to scale by.
    * @return A new Vector2 instance with the applied scale.
    */
@@ -120,7 +114,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instance is mutated.
-   * 
+   *
    * @param s The factor to scale by.
    * @return The same Vector2 instance with the applied scale.
    */
@@ -130,7 +124,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instance remains unchanged.
-   * 
+   *
    * @return A new Vector2 instance with the applied inversion.
    */
   public Vector2 inverse() {
@@ -139,7 +133,7 @@ public class Vector2 {
 
   /**
    * The original Vector2 instance is mutated.
-   * 
+   *
    * @return The same Vector2 instance with the applied inversion.
    */
   public Vector2 invert() {

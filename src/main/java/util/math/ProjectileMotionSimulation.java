@@ -1,8 +1,8 @@
 package util.math;
 
 public class ProjectileMotionSimulation {
-  private final static double g = 9.81; // acceleration due to gravity (m/s^2)
-  private final static double rho = 1.225; // density of air (kg/m^3)
+  private static final double g = 9.81; // acceleration due to gravity (m/s^2)
+  private static final double rho = 1.225; // density of air (kg/m^3)
 
   public static class CommonProjectiles {
     public static class Sphere {
@@ -24,42 +24,42 @@ public class ProjectileMotionSimulation {
 
   private double launchAngle;
 
-  public ProjectileMotionSimulation(double projectileMass, double projectileFrontalArea,
-      double projectileDragCoefficient) {
+  public ProjectileMotionSimulation(
+      double projectileMass, double projectileFrontalArea, double projectileDragCoefficient) {
     this.projectileMass = projectileMass;
     this.projectileWeight = new Vector2(0, projectileMass * -g);
     this.projectileDragFactor = 0.5 * rho * projectileDragCoefficient * projectileFrontalArea;
     this.projectileTerminalVelocity = Math.sqrt(projectileMass * g / projectileDragFactor);
   }
 
-  public ProjectileMotionSimulation(double projectileMass, double projectileFrontalArea,
-      double projectileDragCoefficient, double launchAngle) {
+  public ProjectileMotionSimulation(
+      double projectileMass,
+      double projectileFrontalArea,
+      double projectileDragCoefficient,
+      double launchAngle) {
     this(projectileFrontalArea, projectileMass, projectileDragCoefficient);
     setLaunchAngle(launchAngle);
   }
 
   /**
-   * @param launchAngle The angle from the horizontal, in degrees, that the
-   *                    projectile begins motion in. For reference, 90 is
-   *                    completely vertical and 0 is completely horizontal.
+   * @param launchAngle The angle from the horizontal, in degrees, that the projectile begins motion
+   *     in. For reference, 90 is completely vertical and 0 is completely horizontal.
    */
   public void setLaunchAngle(double launchAngle) {
     this.launchAngle = launchAngle;
   }
 
   /**
-   * @param simulationStep Number of seconds between each "tick" in the
-   *                       simulation, 0.01 by default.
+   * @param simulationStep Number of seconds between each "tick" in the simulation, 0.01 by default.
    */
   public void setSimulationStep(double simulationStep) {
     this.simulationStep = simulationStep;
   }
 
   /**
-   * @param simulationIterations Number of iterations of the simulation completed
-   *                             to find the optimal launch velocity, 10 by
-   *                             default. Each iteration doubles the precision
-   *                             using a binary search.
+   * @param simulationIterations Number of iterations of the simulation completed to find the
+   *     optimal launch velocity, 10 by default. Each iteration doubles the precision using a binary
+   *     search.
    */
   public void setSimulationIterations(double simulationIterations) {
     this.simulationIterations = simulationIterations;
@@ -73,20 +73,18 @@ public class ProjectileMotionSimulation {
   }
 
   /**
-   * @param goalPosition A Vector2 representing the goal's relative position from
-   *                     the launching position of the projectile, where x is the
-   *                     horizontal distance of the goal and y is the height of
-   *                     the goal.
-   * @return The optimal launch velocity, in meters per second, for the projectile
-   *         to reach that position. NOTE: may return NaN.
+   * @param goalPosition A Vector2 representing the goal's relative position from the launching
+   *     position of the projectile, where x is the horizontal distance of the goal and y is the
+   *     height of the goal.
+   * @return The optimal launch velocity, in meters per second, for the projectile to reach that
+   *     position. NOTE: may return NaN.
    */
   public double getOptimalLaunchVelocity(Vector2 goalPosition) {
     Vector2 minLaunchVelocity = new Vector2();
     Vector2 maxLaunchVelocity = Vector2.fromPolar(projectileTerminalVelocity, launchAngle);
 
     double intersectYMax = runSingleSimulation(goalPosition.x, maxLaunchVelocity);
-    if (intersectYMax < goalPosition.y)
-      return Double.NaN;
+    if (intersectYMax < goalPosition.y) return Double.NaN;
 
     // binary search for goldilocks velocity
     // uncertainty on this velocity is halved with each iteration

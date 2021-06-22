@@ -12,17 +12,19 @@ import frc.robot.subsystems.TowerSubsystem;
 public class IntakeBalls extends StartEndCommand {
 
   public IntakeBalls(IntakeSubsystem s_Intake, IndexerSubsystem s_Indexer, TowerSubsystem s_Tower) {
-    super(() -> {
-      s_Intake.toggle(true, true);
-      s_Indexer.start();
-      s_Tower.startForIntaking();
-    }, () -> {
-      s_Intake.toggle(false, false);
-      s_Indexer.stop();
-      s_Tower.stop();
-    },
-    s_Intake,
-    s_Indexer,
-    s_Tower);
+    super(
+        () -> {
+          s_Intake.toggle(true, true);
+          s_Indexer.start();
+          s_Tower.startForIntaking();
+        },
+        () -> {
+          s_Intake.toggle(false, false);
+          s_Indexer.stop();
+          s_Tower.stop();
+        },
+        s_Intake,
+        s_Indexer,
+        s_Tower);
   }
 }
