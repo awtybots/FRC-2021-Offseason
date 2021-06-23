@@ -4,7 +4,7 @@ import edu.wpi.first.wpiutil.math.Pair;
 import frc.robot.Constants.Field;
 import frc.robot.Constants.Shooter;
 import util.math.Interpolatable;
-import util.math.InterpolationMap;
+import util.math.InterpolatableMap;
 import util.math.ProjectileMotionSimulation;
 import util.math.ProjectileMotionSimulation.CommonProjectiles.Sphere;
 import util.math.Vector2;
@@ -35,19 +35,19 @@ public interface AutoShootSolver {
 
   public class AutoShootInterpolationSolver implements AutoShootSolver {
 
-    private final InterpolationMap<Pair<Double, Double>> interpolationMap =
-        new InterpolationMap<>();
+    private final InterpolatableMap<Pair<Double, Double>> shotsMap =
+        new InterpolatableMap<>();
 
     public AutoShootInterpolationSolver() {
       for (double[] entry : Shooter.autoShootInterpolationMap) {
-        interpolationMap.addKeyframe(
+        shotsMap.addKeyframe(
             entry[0], Interpolatable.interpolatableDoublePair(entry[1], entry[2]));
       }
     }
 
     @Override
     public Pair<Double, Double> solve(Vector2 powerPortOffset) {
-      return interpolationMap.get(powerPortOffset.x);
+      return shotsMap.get(powerPortOffset.x);
     }
   }
 }

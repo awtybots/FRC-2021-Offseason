@@ -3,10 +3,10 @@ package util.math;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class InterpolationMap<T> {
+public class InterpolatableMap<T> {
   private TreeMap<Double, Interpolatable<T>> keyframes = new TreeMap<>();
 
-  public InterpolationMap() {}
+  public InterpolatableMap() {}
 
   public void addKeyframe(double position, Interpolatable<T> value) {
     keyframes.put(position, value);
