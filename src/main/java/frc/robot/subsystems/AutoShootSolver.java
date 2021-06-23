@@ -35,13 +35,11 @@ public interface AutoShootSolver {
 
   public class AutoShootInterpolationSolver implements AutoShootSolver {
 
-    private final InterpolatableMap<Pair<Double, Double>> shotsMap =
-        new InterpolatableMap<>();
+    private final InterpolatableMap<Pair<Double, Double>> shotsMap = new InterpolatableMap<>();
 
     public AutoShootInterpolationSolver() {
       for (double[] entry : Shooter.autoShootInterpolationMap) {
-        shotsMap.addKeyframe(
-            entry[0], Interpolatable.interpolatableDoublePair(entry[1], entry[2]));
+        shotsMap.addKeyframe(entry[0], Interpolatable.interpolatableDoublePair(entry[1], entry[2]));
       }
     }
 
