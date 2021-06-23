@@ -5,8 +5,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
 
-  private double mountingHeight;
-  private double mountingAngle;
+  public final double mountingHeight;
+  public final double mountingAngle;
 
   private final NetworkTable netTable = NetworkTableInstance.getDefault().getTable("limelight");
 
@@ -15,17 +15,8 @@ public class Limelight {
     this.mountingHeight = mountingHeight;
   }
 
-  public double getMountingHeight() {
-    return mountingHeight;
-  }
-
-  public double getMountingAngle() {
-    return mountingAngle;
-  }
-
   public boolean hasVisibleTarget() {
-    double res = getValue(TableEntry.HasValidTargets);
-    return res == 1.0;
+    return getValue(TableEntry.HasValidTargets) == 1.0;
   }
 
   /**
