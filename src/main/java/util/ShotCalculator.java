@@ -1,7 +1,9 @@
 package util;
 
 public interface ShotCalculator {
-  double[] calculate(double distanceMeters);
+  default double[] calculate(double distanceMeters) {
+    return new double[] {calculateRPM(distanceMeters), calculateLaunchAngle(distanceMeters)};
+  }
 
   double calculateLaunchAngle(double distanceMeters);
 

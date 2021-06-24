@@ -19,12 +19,6 @@ public class ShotTuner implements ShotCalculator, Sendable {
         "Target Launch Angle", null, (double angle) -> this.targetLaunchAngle = angle);
   }
 
-  public double[] calculate(double distanceMeters) {
-    final double angle = calculateLaunchAngle(distanceMeters);
-    final double rpm = calculateRPM(distanceMeters);
-    return new double[] {rpm, angle};
-  }
-
   public double calculateLaunchAngle(double distanceMeters) {
     return targetLaunchAngle;
   }
