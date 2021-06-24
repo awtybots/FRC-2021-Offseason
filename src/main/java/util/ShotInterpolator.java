@@ -15,7 +15,7 @@ public class ShotInterpolator implements ShotCalculator {
   public double[] calculate(double distanceMeters) {
     final double launchAngle = calculateLaunchAngle(distanceMeters);
     final double rpm = calculateRPM(distanceMeters);
-    return new double[]{rpm, launchAngle};
+    return new double[] {rpm, launchAngle};
   }
 
   public double calculateLaunchAngle(double distanceMeters) {

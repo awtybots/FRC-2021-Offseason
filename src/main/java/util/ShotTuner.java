@@ -1,18 +1,22 @@
 package util;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ShotTuner implements ShotCalculator {
+public class ShotTuner implements ShotCalculator, Sendable {
 
-  private final NetworkTable glassTable;
-  private final NetworkTableEntry rpm, launchAngle;
+  private double targetRPM;
+  private double targetLaunchAngle;
 
   public ShotTuner() {
-    glassTable = NetworkTableInstance.getDefault().getTable("ShotTuning");
-    rpm = glassTable.getEntry("target_rpm");
-    launchAngle = glassTable.getEntry("target_launch_angle");
+    SmartDashboard.putData("Shot Tuner", this);
+  }
+
+  public void initSendable(SendableBuilder builder) {
+    builder.addDoubleProperty("Target RPM", null, (double rpm) -> this.targetRPM = rpm);
+    builder.addDoubleProperty(
+        "Target Launch Angle", null, (double angle) -> this.targetLaunchAngle = angle);
   }
 
   public double[] calculate(double distanceMeters) {
@@ -22,10 +26,10 @@ public class ShotTuner implements ShotCalculator {
   }
 
   public double calculateLaunchAngle(double distanceMeters) {
-    return launchAngle.getDouble(0);
+    return targetLaunchAngle;
   }
 
   public double calculateRPM(double distanceMeters) {
-    return rpm.getDouble(0);
+    return targetRPM;
   }
 }
