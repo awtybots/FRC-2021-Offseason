@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import util.math.Shot;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -56,14 +58,14 @@ public final class Constants {
     public static final double maxHoodLaunchAngle = 76.0;
     public static final double hoodLaunchAngleAcceptableError = 1.0; // TODO
 
-    public static final double[][] autoShootInterpolationMap =
-        new double[][] {
+    public static final Shot[] autoShootInterpolationMap =
+        new Shot[] {
           // { distance (m), flywheel rpm, launch angle }
-          {0.5, 3700.0, 76.0}, // TODO placeholder values
-          {1.0, 3900.0, 74.0},
-          {1.5, 4200.0, 71.0},
-          {2.0, 4500.0, 68.0},
-          {2.5, 5000.0, 62.0},
+          new Shot(0.5, 3700.0, 76.0), // TODO placeholder values
+          new Shot(1.0, 3900.0, 74.0),
+          new Shot(1.5, 4200.0, 71.0),
+          new Shot(2.0, 4500.0, 68.0),
+          new Shot(2.5, 5000.0, 62.0),
         };
   }
 

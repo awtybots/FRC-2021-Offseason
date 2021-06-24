@@ -1,7 +1,5 @@
 package util.math;
 
-import edu.wpi.first.wpiutil.math.Pair;
-
 public abstract class Interpolatable<T> {
   private final T value;
 
@@ -28,13 +26,13 @@ public abstract class Interpolatable<T> {
     };
   }
 
-  public static Interpolatable<Pair<Double, Double>> interpolatableDoublePair(double a, double b) {
-    return new Interpolatable<Pair<Double, Double>>(new Pair<Double, Double>(a, b)) {
+  public static Interpolatable<Shot> interpolatableShot(Shot shot) {
+    return new Interpolatable<Shot>(new Shot(shot.rpm, shot.launchAngle)) {
       @Override
-      public Pair<Double, Double> interpolate(Pair<Double, Double> endValue, double t) {
-        return new Pair<Double, Double>(
-            super.value.getFirst() + t * (endValue.getFirst() - super.value.getFirst()),
-            super.value.getSecond() + t * (endValue.getSecond() - super.value.getSecond()));
+      public Shot interpolate(Shot endValue, double t) {
+        return new Shot(
+            super.value.rpm + t * (endValue.rpm - super.value.rpm),
+            super.value.launchAngle + t * (endValue.launchAngle - super.value.launchAngle));
       }
     };
   }

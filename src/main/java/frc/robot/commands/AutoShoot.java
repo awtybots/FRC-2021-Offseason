@@ -2,15 +2,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpiutil.math.Pair;
 import frc.robot.Constants.Field;
-import frc.robot.Constants.Shooter;
 import frc.robot.subsystems.AutoShootSolver;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TowerSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
+import util.math.Shot;
 import util.math.Vector2;
 import util.vision.VisionTarget;
 
@@ -55,22 +54,20 @@ public class AutoShoot extends CommandBase {
 
     s_Turret.rotateBy(s_Limelight.targetXOffset());
 
-    Vector2 powerPortOffset = powerPortVisionTarget.getGoalDisplacement();
+    final Vector2 powerPortOffset = powerPortVisionTarget.getGoalDisplacement();
     SmartDashboard.putNumber("Power Port Perceived Distance", powerPortOffset.x);
 
-    Pair<Double, Double> solutionValues = s_AutoShootSolver.solve(powerPortOffset);
-    double goalLaunchVelocity = solutionValues.getFirst();
-    double goalLaunchAngle = solutionValues.getSecond();
+    final Shot solutionValues = s_AutoShootSolver.solve(powerPortOffset);
+    final double goalFlywheelRpm = solutionValues.rpm;
+    final double goalLaunchAngle = solutionValues.launchAngle;
 
-    boolean solution = !Double.isNaN(goalLaunchVelocity);
+    final boolean solution = !Double.isNaN(goalFlywheelRpm);
     SmartDashboard.putBoolean("Projectile Motion Solution", solution);
     if (!solution) return; // ? change maybe
 
-    double goalFlywheelRpm =
-        goalLaunchVelocity / (Shooter.flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
     s_Shooter.setTarget(goalFlywheelRpm, goalLaunchAngle);
 
-    boolean readyToShoot =
+    final boolean readyToShoot =
         s_Shooter.isFlywheelAtGoal() && s_Shooter.isHoodAtGoal() && s_Turret.isAtGoal();
 
     if (readyToShoot) {

@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpiutil.math.Pair;
 import frc.robot.Constants.Field;
 import frc.robot.Constants.Shooter;
 import util.math.Interpolatable;
 import util.math.InterpolatableMap;
 import util.math.ProjectileMotionSimulation;
 import util.math.ProjectileMotionSimulation.CommonProjectiles.Sphere;
+import util.math.Shot;
 import util.math.Vector2;
 
 public interface AutoShootSolver {
-  public Pair<Double, Double> solve(Vector2 powerPortOffset);
+  public Shot solve(Vector2 powerPortOffset);
 
   public class AutoShootProjectileMotionSolver implements AutoShootSolver {
 
@@ -21,30 +21,33 @@ public interface AutoShootSolver {
     public AutoShootProjectileMotionSolver() {}
 
     @Override
-    public Pair<Double, Double> solve(Vector2 powerPortOffset) {
-      double goalLaunchAngle =
+    public Shot solve(Vector2 powerPortOffset) {
+      final double goalLaunchAngle =
           Math.toDegrees(Math.atan2(powerPortOffset.x, powerPortOffset.y + 1.0));
       projectileMotionSimulation.setLaunchAngle(goalLaunchAngle);
 
-      double goalLaunchVelocity =
+      final double goalLaunchVelocity =
           projectileMotionSimulation.getOptimalLaunchVelocity(powerPortOffset);
 
-      return new Pair<Double, Double>(goalLaunchVelocity, goalLaunchAngle);
+      final double goalRPM =
+          goalLaunchVelocity / (Shooter.flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
+
+      return new Shot(powerPortOffset.x, goalRPM, goalLaunchAngle);
     }
   }
 
   public class AutoShootInterpolationSolver implements AutoShootSolver {
 
-    private final InterpolatableMap<Pair<Double, Double>> shotsMap = new InterpolatableMap<>();
+    private final InterpolatableMap<Shot> shotsMap = new InterpolatableMap<>();
 
     public AutoShootInterpolationSolver() {
-      for (double[] entry : Shooter.autoShootInterpolationMap) {
-        shotsMap.addKeyframe(entry[0], Interpolatable.interpolatableDoublePair(entry[1], entry[2]));
+      for (Shot entry : Shooter.autoShootInterpolationMap) {
+        shotsMap.addKeyframe(entry.distanceMeters, Interpolatable.interpolatableShot(entry));
       }
     }
 
     @Override
-    public Pair<Double, Double> solve(Vector2 powerPortOffset) {
+    public Shot solve(Vector2 powerPortOffset) {
       return shotsMap.get(powerPortOffset.x);
     }
   }
