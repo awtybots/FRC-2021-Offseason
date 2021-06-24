@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import util.ShotCalculator;
+import util.ShotTuner;
 import util.controls.Controller;
 
 /**
@@ -33,12 +35,16 @@ public class RobotContainer {
 
   private final JoystickButton unjam = operator.bumperLeft;
 
+  private final ShotCalculator s_ShotGuesser = new ShotTuner();
+  // private final ShotCalculator s_ShotGuesser = new
+  // ShotInterpolator(Constants.Shooter.tunedShots);
+
   /* Subsystems*/
   private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
   private final IntakeSubsystem s_Intake = new IntakeSubsystem();
   private final IndexerSubsystem s_Indexer = new IndexerSubsystem();
   private final TowerSubsystem s_Tower = new TowerSubsystem();
-  private final ShooterSubsystem s_Shooter = new ShooterSubsystem();
+  private final ShooterSubsystem s_Shooter = new ShooterSubsystem(s_ShotGuesser);
 
   private SendableChooser<Command> autonSelector = new SendableChooser<>();
 

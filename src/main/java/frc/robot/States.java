@@ -9,7 +9,8 @@ public final class States {
     calibrating,
     disabled,
     standby,
-    targeting,
+    manualShooting,
+    autoTargeting,
   }
 
   public static enum TurretState {

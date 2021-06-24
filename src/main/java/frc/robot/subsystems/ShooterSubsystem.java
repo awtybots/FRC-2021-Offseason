@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -11,21 +7,22 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Shooter;
+import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.States.ShooterState;
+import util.ShotCalculator;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  /* --- TODO ---
-   * Tuning
-   * - set PID + goal for both
-   * - tune shots into interpolatable map
-   */
   private TalonFX flywheel;
   private TalonSRX hood;
   private double[] setpoints;
 
-  public ShooterSubsystem() {
+  private final ShotCalculator shotCalculator;
+
+  public ShooterSubsystem(ShotCalculator sCalculator) {
+    shotCalculator = sCalculator;
+
     flywheel = new TalonFX(Shooter.flywheelMotorID);
     flywheel.configFactoryDefault();
     flywheel.setNeutralMode(NeutralMode.Coast);
@@ -71,13 +68,14 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     switch (States.shooterState) {
-      case targeting:
+      case autoTargeting:
+        double[] target = shotCalculator.calculate(0); // TODO get data from limelight
+        setFlywheelRPM(target[0]);
+        setHoodLaunchAngle(target[1]);
+        break;
+      case manualShooting:
         setFlywheelRPM(setpoints[0]);
         setHoodLaunchAngle(setpoints[1]);
-        break;
-      case calibrating:
-        // TODO add goal RPM, goal angle to dashboard for testing
-        // TODO add PID values for tuning
         break;
       case standby:
         setFlywheelRPM(0);
@@ -95,7 +93,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setTarget(double flywheelRpm, double hoodLaunchAngle) {
     setpoints = new double[] {flywheelRpm, hoodLaunchAngle};
-    States.shooterState = ShooterState.targeting;
+    States.shooterState = ShooterState.manualShooting;
+  }
+
+  public void autoTarget() {
+    States.shooterState = ShooterState.autoTargeting;
   }
 
   public void standby() {

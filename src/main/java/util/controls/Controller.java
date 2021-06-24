@@ -43,8 +43,10 @@ public class Controller {
   public final Button triggerLeft = new Button(() -> getTrigger(Hand.kLeft) > 0);
   public final Button triggerRight = new Button(() -> getTrigger(Hand.kRight) > 0);
 
-  public final JoystickButton joystickClickLeft = createButton(XboxController.Button.kStickLeft.value);
-  public final JoystickButton joystickClickRight = createButton(XboxController.Button.kStickRight.value);
+  public final JoystickButton joystickClickLeft =
+      createButton(XboxController.Button.kStickLeft.value);
+  public final JoystickButton joystickClickRight =
+      createButton(XboxController.Button.kStickRight.value);
 
   public final POVButton dpadUp;
   public final POVButton dpadRight;
