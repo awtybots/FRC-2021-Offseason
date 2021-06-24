@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants.Turret;
@@ -14,6 +15,13 @@ import frc.robot.States;
 import frc.robot.States.TurretState;
 
 public class TurretSubsystem extends SubsystemBase {
+
+  public void initSendable(SendableBuilder builder) {
+    builder.addDoubleProperty("kP", null, (double set) -> turret.config_kP(0, set));
+    builder.addDoubleProperty("kI", null, (double set) -> turret.config_kI(0, set));
+    builder.addDoubleProperty("kD", null, (double set) -> turret.config_kD(0, set));
+    builder.addDoubleProperty("kF", null, (double set) -> turret.config_kF(0, set));
+  }
 
   private TalonSRX turret;
   private double setpoint;

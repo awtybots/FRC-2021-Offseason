@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Shooter;
 import frc.robot.States;
@@ -18,6 +19,18 @@ public class ShooterSubsystem extends SubsystemBase {
   private double[] setpoints;
 
   private final ShotCalculator shotCalculator;
+
+  public void initSendable(SendableBuilder builder) {
+    builder.addDoubleProperty("Flywheel kP", null, (double set) -> flywheel.config_kP(0, set));
+    builder.addDoubleProperty("Flywheel kI", null, (double set) -> flywheel.config_kI(0, set));
+    builder.addDoubleProperty("Flywheel kD", null, (double set) -> flywheel.config_kD(0, set));
+    builder.addDoubleProperty("Flywheel kF", null, (double set) -> flywheel.config_kF(0, set));
+
+    builder.addDoubleProperty("Hood kP", null, (double set) -> hood.config_kP(0, set));
+    builder.addDoubleProperty("Hood kI", null, (double set) -> hood.config_kI(0, set));
+    builder.addDoubleProperty("Hood kD", null, (double set) -> hood.config_kD(0, set));
+    builder.addDoubleProperty("Hood kF", null, (double set) -> hood.config_kF(0, set));
+  }
 
   public ShooterSubsystem(ShotCalculator sCalculator) {
     shotCalculator = sCalculator;

@@ -44,10 +44,19 @@ public final class Constants {
   }
 
   public static final class Shooter {
+    public static final boolean unTuned = true;
     public static final int flywheelMotorID = 0; // TODO
     public static final double flywheelGearRatio = 1.0; // TODO
     public static final int readyToShootRPMThreshold = 50;
     public static final int flywheelMaxRPM = 6400;
+
+    public static final double[][] tunedShots =
+        new double[][] {
+          {0, 3700, 76},
+          {1, 4000, 60},
+          {2, 4500, 60},
+          {3, 4900, 60},
+        };
 
     public static final int hoodMotorID = 0; // TODO
     public static final double hoodGearRatio = 1.0; // TODO
@@ -56,6 +65,7 @@ public final class Constants {
   }
 
   public static final class Turret {
+    public static final boolean unTuned = true;
     public static final int motorID = 0;
 
     public static final double homeAngle = 180;

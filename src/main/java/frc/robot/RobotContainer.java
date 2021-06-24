@@ -5,13 +5,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.Shooter;
+import frc.robot.Constants.Turret;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import util.ShotCalculator;
+import util.ShotInterpolator;
 import util.ShotTuner;
 import util.controls.Controller;
 
@@ -35,15 +39,15 @@ public class RobotContainer {
 
   private final JoystickButton unjam = operator.bumperLeft;
 
-  private final ShotCalculator s_ShotGuesser = new ShotTuner();
-  // private final ShotCalculator s_ShotGuesser = new
-  // ShotInterpolator(Constants.Shooter.tunedShots);
+  private final ShotCalculator s_ShotGuesser =
+      Shooter.unTuned ? new ShotTuner() : new ShotInterpolator(Shooter.tunedShots);
 
   /* Subsystems*/
   private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
   private final IntakeSubsystem s_Intake = new IntakeSubsystem();
   private final IndexerSubsystem s_Indexer = new IndexerSubsystem();
   private final TowerSubsystem s_Tower = new TowerSubsystem();
+  private final TurretSubsystem s_Turret = new TurretSubsystem();
   private final ShooterSubsystem s_Shooter = new ShooterSubsystem(s_ShotGuesser);
 
   private SendableChooser<Command> autonSelector = new SendableChooser<>();
@@ -51,6 +55,9 @@ public class RobotContainer {
   public RobotContainer() {
     s_Drive.setDefaultCommand(new ArcadeDrive(s_Drive, driver));
     configureButtonBindings();
+
+    if (Turret.unTuned) SmartDashboard.putData("Turret PIDF", s_Turret);
+    if (Shooter.unTuned) SmartDashboard.putData("Shooter PIDF", s_Shooter);
 
     /// ---- Autonomous Commands ---- ///
     autonSelector.setDefaultOption("Do Nothing", new InstantCommand());
