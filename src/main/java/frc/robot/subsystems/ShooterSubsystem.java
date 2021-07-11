@@ -11,6 +11,7 @@ import frc.robot.Constants.Shooter;
 import frc.robot.States;
 import frc.robot.States.ShooterState;
 import util.ShotCalculator;
+import util.vision.Limelight;
 
 public class ShooterSubsystem extends SubsystemBase {
 
@@ -19,6 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double[] setpoints;
 
   private final ShotCalculator shotCalculator;
+  private final Limelight limelight;
 
   public void initSendable(SendableBuilder builder) {
     builder.addDoubleProperty("Flywheel kP", null, (double set) -> flywheel.config_kP(0, set));
@@ -32,8 +34,9 @@ public class ShooterSubsystem extends SubsystemBase {
     builder.addDoubleProperty("Hood kF", null, (double set) -> hood.config_kF(0, set));
   }
 
-  public ShooterSubsystem(ShotCalculator sCalculator) {
+  public ShooterSubsystem(ShotCalculator sCalculator, Limelight sLimelight) {
     shotCalculator = sCalculator;
+    limelight = sLimelight;
 
     flywheel = new TalonFX(Shooter.flywheelMotorID);
     flywheel.configFactoryDefault();
@@ -81,7 +84,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     switch (States.shooterState) {
       case autoTargeting:
-        double[] target = shotCalculator.calculate(0); // TODO get data from limelight
+        double[] target = shotCalculator.calculate(limelight.distanceFromTarget());
         setFlywheelRPM(target[0]);
         setHoodLaunchAngle(target[1]);
         break;
