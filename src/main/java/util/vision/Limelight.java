@@ -2,22 +2,27 @@ package util.vision;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.MedianFilter;
 
 public class Limelight {
 
-  public double mountHeight;
-  public double mountAngle;
+  public final double mountHeight;
+  public final double mountAngle;
+  public final double heightToTarget;
+  private final MedianFilter distanceFilter = new MedianFilter(10);
 
   private final NetworkTable netTable = NetworkTableInstance.getDefault().getTable("limelight");
 
-  public Limelight(double mountingHeight, double mountingAngle) {
+  public Limelight(double mountingHeight, double mountingAngle, double targetHeight) {
     mountAngle = mountingAngle;
     mountHeight = mountingHeight;
+    heightToTarget = targetHeight - mountingHeight;
   }
 
   public boolean hasVisibleTarget() {
-    double res = getValue(TableEntry.HasValidTargets);
-    return res == 1.0;
+    double hasTarget = getValue(TableEntry.HasValidTargets);
+    if (hasTarget == 0.0) distanceFilter.reset();
+    return hasTarget == 1.0;
   }
 
   /**
@@ -34,6 +39,17 @@ public class Limelight {
     return getValue(TableEntry.TargetYOffset);
   }
 
+  /**
+   * @return distance in meters to target or 0 if unable to see target 
+   */
+  public double distanceFromTarget() {
+    if (!this.hasVisibleTarget()) {
+      return 0.0;
+    } else {
+      return distanceFilter.calculate(heightToTarget / Math.tan(mountAngle+this.targetYOffset()));
+    }
+  }
+
   /** Set the current camera pipeline (integer from 0 to 9, inclusive) */
   public void setPipeline(int pipeline) {
     if (pipeline < 10 && pipeline > -1) setValue(TableEntry.CurrentPipeline, pipeline);
@@ -43,7 +59,7 @@ public class Limelight {
     setValue(TableEntry.OperationMode, enabled ? 1.0 : 0.0);
   }
 
-  public void toggleLED(LEDMode state) {
+  public void setLED(LEDMode state) {
     setValue(TableEntry.LEDMode, state.ordinal());
   }
 
@@ -56,7 +72,7 @@ public class Limelight {
     return netTable.getEntry(entry.setter).setDouble(value);
   }
 
-  private enum LEDMode {
+  public enum LEDMode {
     /** Uses the default mode set in the active Pipeline */
     PipelineDefault,
     Off,
