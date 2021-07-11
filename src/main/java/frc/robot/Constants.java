@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -74,5 +76,12 @@ public final class Constants {
 
     public static final double pulleyRatio = 1.0;
     public static final double maxSpeed = 0.5;
+  }
+
+  public static final class Vision {
+    public static final double goalHeight = Units.inchesToMeters(81.0 + (17.0 / 2.0));
+    ;
+    public static final double limelightHeight = Units.inchesToMeters(36.0);
+    public static final double limelightAngle = 0.0; // TODO
   }
 }

@@ -39,14 +39,12 @@ public class Limelight {
     return getValue(TableEntry.TargetYOffset);
   }
 
-  /**
-   * @return distance in meters to target or 0 if unable to see target 
-   */
+  /** @return distance in meters to target or 0 if unable to see target */
   public double distanceFromTarget() {
     if (!this.hasVisibleTarget()) {
       return 0.0;
     } else {
-      return distanceFilter.calculate(heightToTarget / Math.tan(mountAngle+this.targetYOffset()));
+      return distanceFilter.calculate(heightToTarget / Math.tan(mountAngle + this.targetYOffset()));
     }
   }
 

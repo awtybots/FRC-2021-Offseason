@@ -18,6 +18,7 @@ import util.ShotCalculator;
 import util.ShotInterpolator;
 import util.ShotTuner;
 import util.controls.Controller;
+import util.vision.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,6 +40,11 @@ public class RobotContainer {
 
   private final JoystickButton unjam = operator.bumperLeft;
 
+  private final Limelight s_Limelight =
+      new Limelight(
+          Constants.Vision.limelightHeight,
+          Constants.Vision.limelightAngle,
+          Constants.Vision.goalHeight);
   private final ShotCalculator s_ShotGuesser =
       Shooter.unTuned ? new ShotTuner() : new ShotInterpolator(Shooter.tunedShots);
 
@@ -48,7 +54,7 @@ public class RobotContainer {
   private final IndexerSubsystem s_Indexer = new IndexerSubsystem();
   private final TowerSubsystem s_Tower = new TowerSubsystem();
   private final TurretSubsystem s_Turret = new TurretSubsystem();
-  private final ShooterSubsystem s_Shooter = new ShooterSubsystem(s_ShotGuesser);
+  private final ShooterSubsystem s_Shooter = new ShooterSubsystem(s_ShotGuesser, s_Limelight);
 
   private SendableChooser<Command> autonSelector = new SendableChooser<>();
 
