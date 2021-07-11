@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Shooter;
 import frc.robot.States;
 import frc.robot.States.ShooterState;
+import util.Convert;
 import util.ShotCalculator;
 import util.vision.Limelight;
 
@@ -57,21 +58,15 @@ public class ShooterSubsystem extends SubsystemBase {
     hood.config_kF(0, 0.0);
   }
 
-  private static double rpmToFlywheelVelocity(double rpm) { // flywheel RPM --> motor ticks/100ms
-    rpm *= Shooter.flywheelGearRatio;
-    double revsPer100ms = rpm / 60.0 / 10.0;
-    return revsPer100ms * 2048.0; // 2048 ticks per rev on falcon encoder
-  }
-
   private static double angleToHoodPosition(double launchAngle) {
-    double revs = (90 - launchAngle) / 360.0; // hood angle to revs
-    revs *= Shooter.hoodGearRatio;
-    return revs * 4096.0; // 4096 ticks per rev on CTRE Mag Encoder
+    return Convert.degreesToCanCoder(90 - launchAngle, Shooter.hoodGearRatio);
   }
 
   private void setFlywheelRPM(double rpm) {
     if (0 > rpm || rpm > Shooter.flywheelMaxRPM) return;
-    if (rpm != 0) flywheel.set(ControlMode.Velocity, rpmToFlywheelVelocity(rpm));
+    if (rpm != 0)
+      flywheel.set(
+          ControlMode.Velocity, Convert.RPMToFalconVelocity(rpm, Shooter.flywheelGearRatio));
     else flywheel.set(ControlMode.PercentOutput, 0);
   }
 

@@ -13,6 +13,7 @@ import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants.Turret;
 import frc.robot.States;
 import frc.robot.States.TurretState;
+import util.Convert;
 
 public class TurretSubsystem extends SubsystemBase {
 
@@ -31,7 +32,7 @@ public class TurretSubsystem extends SubsystemBase {
     turret.configFactoryDefault();
     turret.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     turret.setSelectedSensorPosition(
-        Turret.homeAngle / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
+        Convert.canCoderToDegrees(Turret.homeAngle, Turret.pulleyRatio));
     turret.config_kP(0, 0); // TODO
     turret.config_kI(0, 0);
     turret.config_kD(0, 0);
@@ -39,10 +40,8 @@ public class TurretSubsystem extends SubsystemBase {
   }
 
   private double getCurrentAngle() {
-    double encoderPos = turret.getSelectedSensorPosition();
-    double currentAngle =
-        (encoderPos / 2048.0) * Turret.pulleyRatio * 360.0; // TODO conversions math util
-    return currentAngle;
+    double currentEncoderPos = turret.getSelectedSensorPosition();
+    return Convert.canCoderToDegrees(currentEncoderPos, Turret.pulleyRatio);
   }
 
   @Override
@@ -51,9 +50,7 @@ public class TurretSubsystem extends SubsystemBase {
       case home:
         setpoint = Turret.homeAngle; // home state is just targeting home
       case targeting:
-        turret.set(
-            ControlMode.Position,
-            setpoint / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
+        turret.set(ControlMode.Position, Convert.degreesToCanCoder(setpoint, Turret.pulleyRatio));
         break;
       case calibrating:
         // TODO SmartDashboard PID calibrating suite
