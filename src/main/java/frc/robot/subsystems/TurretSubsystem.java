@@ -19,7 +19,7 @@ public class TurretSubsystem extends SubsystemBase {
   private double setpoint;
 
   public TurretSubsystem() {
-    turret = new TalonSRX(Turret.motorID); // TODO
+    turret = new TalonSRX(Turret.motorID);
     turret.configFactoryDefault();
     turret.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     turret.setSelectedSensorPosition(
@@ -83,6 +83,11 @@ public class TurretSubsystem extends SubsystemBase {
     setpoint = MathUtil.clamp(setpoint, Turret.minAngle, Turret.maxAngle);
 
     States.turretState = TurretState.targeting;
+  }
+
+  public boolean isAtGoal() {
+    double angleError = turret.getClosedLoopError() / 2048.0 * Turret.pulleyRatio * 360.0;
+    return Math.abs(angleError) < Turret.angleAcceptableError;
   }
 
   public void disable() {

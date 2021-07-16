@@ -5,19 +5,18 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
 
-  public double mountHeight;
-  public double mountAngle;
+  public final double mountingHeight;
+  public final double mountingAngle;
 
   private final NetworkTable netTable = NetworkTableInstance.getDefault().getTable("limelight");
 
   public Limelight(double mountingHeight, double mountingAngle) {
-    mountAngle = mountingAngle;
-    mountHeight = mountingHeight;
+    this.mountingAngle = mountingAngle;
+    this.mountingHeight = mountingHeight;
   }
 
   public boolean hasVisibleTarget() {
-    double res = getValue(TableEntry.HasValidTargets);
-    return res == 1.0;
+    return getValue(TableEntry.HasValidTargets) == 1.0;
   }
 
   /**

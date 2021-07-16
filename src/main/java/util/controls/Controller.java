@@ -7,54 +7,61 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 public class Controller {
-  private XboxController controller;
-  private double kDeadzoneStick = 0.2;
-  private double kDeadzoneTrigger = 0.1;
+  private final XboxController controller;
+  private final double kDeadzoneStick;
+  private final double kDeadzoneTrigger;
 
   public Controller(int port) {
-    controller = new XboxController(port);
+    this(port, 0.08, 0.1);
   }
 
-  public JoystickButton btnA = createButton(XboxController.Button.kA.value);
-  public JoystickButton btnX = createButton(XboxController.Button.kX.value);
-  public JoystickButton btnY = createButton(XboxController.Button.kY.value);
-  public JoystickButton btnB = createButton(XboxController.Button.kB.value);
-  public JoystickButton btnBack = createButton(XboxController.Button.kBack.value);
-  public JoystickButton btnStart = createButton(XboxController.Button.kStart.value);
-
-  public JoystickButton bmpL = createButton(XboxController.Button.kBumperLeft.value);
-  public JoystickButton bmpR = createButton(XboxController.Button.kBumperRight.value);
-
-  public JoystickButton joystickClickL = createButton(XboxController.Button.kStickLeft.value);
-  public JoystickButton joystickClickR = createButton(XboxController.Button.kStickRight.value);
-
-  public POVButton dpadUp = new POVButton(controller, 0);
-  public POVButton dpadRight = new POVButton(controller, 90);
-  public POVButton dpadDown = new POVButton(controller, 180);
-  public POVButton dpadLeft = new POVButton(controller, 270);
-
-  public Button trgL = new Button(() -> getTrigger(Hand.kLeft) > 0);
-  public Button trgR = new Button(() -> getTrigger(Hand.kRight) > 0);
-
-  public ControllerValues getControllerValues() {
-    return new ControllerValues(
-        getX(Hand.kLeft),
-        getY(Hand.kLeft),
-        getX(Hand.kRight),
-        getY(Hand.kRight),
-        getTrigger(Hand.kLeft),
-        getTrigger(Hand.kRight));
+  public Controller(int port, double stickDeadzone) {
+    this(port, stickDeadzone, 0.1);
   }
+
+  public Controller(int port, double stickDeadzone, double triggerDeadzone) {
+    this.controller = new XboxController(port);
+    this.kDeadzoneStick = stickDeadzone;
+    this.kDeadzoneTrigger = triggerDeadzone;
+
+    this.dpadUp = new POVButton(controller, 0);
+    this.dpadRight = new POVButton(controller, 90);
+    this.dpadDown = new POVButton(controller, 180);
+    this.dpadLeft = new POVButton(controller, 270);
+  }
+
+  public final JoystickButton buttonA = createButton(XboxController.Button.kA.value);
+  public final JoystickButton buttonX = createButton(XboxController.Button.kX.value);
+  public final JoystickButton buttonY = createButton(XboxController.Button.kY.value);
+  public final JoystickButton buttonB = createButton(XboxController.Button.kB.value);
+  public final JoystickButton buttonBack = createButton(XboxController.Button.kBack.value);
+  public final JoystickButton buttonStart = createButton(XboxController.Button.kStart.value);
+
+  public final JoystickButton bumperLeft = createButton(XboxController.Button.kBumperLeft.value);
+  public final JoystickButton bumperRight = createButton(XboxController.Button.kBumperRight.value);
+
+  public final Button triggerLeft = new Button(() -> getTrigger(Hand.kLeft) > 0);
+  public final Button triggerRight = new Button(() -> getTrigger(Hand.kRight) > 0);
+
+  public final JoystickButton joystickClickLeft =
+      createButton(XboxController.Button.kStickLeft.value);
+  public final JoystickButton joystickClickRight =
+      createButton(XboxController.Button.kStickRight.value);
+
+  public final POVButton dpadUp;
+  public final POVButton dpadRight;
+  public final POVButton dpadDown;
+  public final POVButton dpadLeft;
 
   private double getTrigger(Hand hand) {
     return deadzone(controller.getTriggerAxis(hand), kDeadzoneTrigger);
   }
 
-  private double getX(Hand hand) {
+  public double getX(Hand hand) {
     return deadzone(controller.getX(hand), kDeadzoneStick);
   }
 
-  private double getY(Hand hand) {
+  public double getY(Hand hand) {
     return deadzone(-controller.getY(hand), kDeadzoneStick);
   }
 
