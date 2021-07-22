@@ -4,41 +4,33 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.Drive;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
+  private WPI_TalonFX frontRight;
+  private WPI_TalonFX frontLeft;
+  private WPI_TalonFX backRight;
+  private WPI_TalonFX backLeft;
 
-  private WPI_TalonFX driveLeftFront;
-  private WPI_TalonFX driveLeftBack;
-  private WPI_TalonFX driveRightFront;
-  private WPI_TalonFX driveRightBack;
+  private DifferentialDrive robotDrive;
 
-  private DifferentialDrive m_robotDrive;
-
-  /** Creates a new DrivetrainSubsystem. */
+  /** Contructor. */
   public DrivetrainSubsystem() {
+    frontRight = new WPI_TalonFX(Constants.Drivetrain.rightFront);
+    frontLeft = new WPI_TalonFX(Constants.Drivetrain.leftFront);
+    backRight = new WPI_TalonFX(Constants.Drivetrain.rightBack);
+    backLeft = new WPI_TalonFX(Constants.Drivetrain.leftBack);
 
-    driveLeftFront = new WPI_TalonFX(Drive.leftMotor1ID);
-    driveLeftBack = new WPI_TalonFX(Drive.leftMotor2ID);
-    driveRightFront = new WPI_TalonFX(Drive.rightMotor1ID);
-    driveRightBack = new WPI_TalonFX(Drive.rightMotor2ID);
+    backRight.follow(frontRight);
+    backLeft.follow(frontLeft);
 
-    driveLeftFront.follow(driveLeftBack);
-    driveRightFront.follow(driveRightBack);
-
-    m_robotDrive = new DifferentialDrive(driveLeftFront, driveRightFront);
+    robotDrive = new DifferentialDrive(frontLeft, frontRight);
   }
 
   public void drive(double speed, double rotation) {
-    m_robotDrive.arcadeDrive(speed, rotation);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+    robotDrive.arcadeDrive(speed, rotation);
   }
 }

@@ -4,14 +4,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.RunTowerCommand;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.TowerSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,57 +20,41 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Joystick driver = new Joystick(0);
-  private final Joystick operator = new Joystick(1);
 
-  /* Driver Controls */
-  private final int speedAxis = XboxController.Axis.kLeftY.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  // The robot's subsystems and commands are defined here...
+  private final XboxController driverController = new XboxController(0);
 
-  /* Driver Buttons */
-  private final JoystickButton intakeBalls =
-      new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);
+  private final JoystickButton runTower =
+      new JoystickButton(driverController, XboxController.Button.kA.value);
 
-  /* Operator Buttons */
-  private final JoystickButton layupShot =
-      new JoystickButton(operator, XboxController.Button.kA.value);
-  private final JoystickButton midrangeShot =
-      new JoystickButton(operator, XboxController.Button.kX.value);
-  private final JoystickButton longShot =
-      new JoystickButton(operator, XboxController.Button.kB.value);
+  private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+  private TowerSubsystem towerSubsystem = new TowerSubsystem();
 
-  private final JoystickButton unjam =
-      new JoystickButton(operator, XboxController.Button.kBumperLeft.value);
-
-  /* Subsystems*/
-  private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
-  private final IntakeSubsystem s_Intake = new IntakeSubsystem();
-  private final IndexerSubsystem s_Indexer = new IndexerSubsystem();
-  private final TowerSubsystem s_Tower = new TowerSubsystem();
-  private final ShooterSubsystem s_Shooter = new ShooterSubsystem();
-
-  private SendableChooser<Command> autonSelector = new SendableChooser<>();
-
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    s_Drive.setDefaultCommand(new ArcadeDrive(s_Drive, driver, speedAxis, rotationAxis));
+    drivetrainSubsystem.setDefaultCommand(new DriveCommand(drivetrainSubsystem, driverController));
+
+    // Configure the button bindings
     configureButtonBindings();
-
-    /// ---- Autonomous Commands ---- ///
-    autonSelector.setDefaultOption("Do Nothing", new InstantCommand());
   }
 
+  /**
+   * Use this method to define your button->command mappings. Buttons can be created by
+   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   */
   private void configureButtonBindings() {
-    /// ---- Driver Controls ---- ///
-    intakeBalls.whenHeld(new IntakeBalls(s_Intake, s_Indexer, s_Tower));
-
-    /// ---- Operator Controls ---- ///
-    unjam.whenHeld(new Unjam(s_Indexer, s_Tower));
-    layupShot.whenHeld(new ManualShoot(s_Shooter, 3700, 76));
-    midrangeShot.whenHeld(new ManualShoot(s_Shooter, 4200, 58));
-    longShot.whenHeld(new ManualShoot(s_Shooter, 5600, 50));
+    runTower.whenHeld(new RunTowerCommand(towerSubsystem, 1, 1));
   }
 
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
   public Command getAutonomousCommand() {
-    return autonSelector.getSelected();
+    // An ExampleCommand will run in autonomous
+    return null;
   }
 }

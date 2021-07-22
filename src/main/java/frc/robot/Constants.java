@@ -13,56 +13,22 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
-  public static final class Drive {
-    public static final int leftMotor1ID = 13;
-    public static final int leftMotor2ID = 14;
-    public static final int rightMotor1ID = 11;
-    public static final int rightMotor2ID = 12;
+  public static class Drivetrain {
+    public static final int rightFront = 1;
+    public static final int rightBack = 2;
+    public static final int leftFront = 3;
+    public static final int leftBack = 4;
   }
 
-  public static final class Intake {
-    public static final int motorID = 5;
-    public static final double speed = 0.6;
-    public static final int pistonDown = 5;
-    public static final int pistonUp = 4;
+  public static class Tower {
+    public static final int frontMotor = 1;
+    public static final int backMotor = 2;
+    public static final double maxSpeedBack = 0.75;
+    public static final double maxSpeedFront = 0.75;
   }
 
-  public static final class Tower {
-    public static final int motorID = 0; // TODO
-
-    public static final double intakingSpeed = 0.3;
-    public static final double shootingSpeed = 0.8;
-    public static final double unjammingSpeed = -0.8;
-  }
-
-  public static final class Indexer {
-    public static final int leftMotorID = 0; // TODO
-    public static final int rightMotorID = 0;
-    public static final double leftSpeed = 0.0;
-    public static final double rightSpeed = 0.0;
-  }
-
-  public static final class Shooter {
-    public static final int flywheelMotorID = 0; // TODO
-    public static final double flywheelGearRatio = 1.0; // TODO
-    public static final int readyToShootRPMThreshold = 50;
-    public static final int flywheelMaxRPM = 6400;
-
-    public static final int hoodMotorID = 0; // TODO
-    public static final double hoodGearRatio = 1.0; // TODO
-    public static final int minHoodLaunchAngle = 56;
-    public static final int maxHoodLaunchAngle = 76;
-  }
-
-  public static final class Turret {
-    public static final int motorID = 0;
-
-    public static final double homeAngle = 180;
-    public static final double minAngle = 135;
-    public static final double maxAngle = 225;
-
-    public static final double pulleyRatio = 1.0;
-    public static final double maxSpeed = 0.5;
+  public static class Indexer {
+    public static final int indexerMotor = 1;
+    public static final double maxSpeed = 0.75;
   }
 }

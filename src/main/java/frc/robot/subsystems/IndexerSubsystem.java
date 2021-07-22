@@ -5,37 +5,19 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Indexer;
+import frc.robot.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
-
-  private TalonSRX leftMotor;
-  private TalonSRX rightMotor;
+  /** Creates a new IndexerSubsystem. */
+  private WPI_TalonSRX indexerMotor;
 
   public IndexerSubsystem() {
-    leftMotor = new TalonSRX(Indexer.leftMotorID);
-    rightMotor = new TalonSRX(Indexer.rightMotorID);
-    rightMotor.setInverted(true);
-
-    stop();
+    indexerMotor = new WPI_TalonSRX(Constants.Indexer.indexerMotor);
   }
 
-  private void run(double x) {
-    leftMotor.set(ControlMode.PercentOutput, Indexer.leftSpeed * x);
-    rightMotor.set(ControlMode.PercentOutput, Indexer.rightSpeed * x);
-  }
-
-  public void intake() {
-    run(1.0);
-  }
-
-  public void unjam() {
-    run(-1.0);
-  }
-
-  public void stop() {
-    run(0.0);
+  public void indexerrun(double indexerSpeed) {
+    indexerMotor.set(ControlMode.PercentOutput, indexerSpeed * Constants.Indexer.maxSpeed);
   }
 }
