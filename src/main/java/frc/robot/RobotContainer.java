@@ -9,8 +9,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunTower;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TowerSubsystem;
 
 /**
@@ -21,20 +24,33 @@ import frc.robot.subsystems.TowerSubsystem;
  */
 public class RobotContainer {
 
-  // The robot's subsystems and commands are defined here...
   private final XboxController driverController = new XboxController(0);
 
-  private final JoystickButton runTower =
+  private final JoystickButton runTowerUp =
       new JoystickButton(driverController, XboxController.Button.kA.value);
+  private final JoystickButton runTowerDown =
+      new JoystickButton(driverController, XboxController.Button.kB.value);
 
+  private final JoystickButton runIntakeIn =
+      new JoystickButton(driverController, XboxController.Button.kX.value);
+  private final JoystickButton runIntakeOut =
+      new JoystickButton(driverController, XboxController.Button.kY.value);
+  private final JoystickButton liftIntake =
+      new JoystickButton(
+          driverController, XboxController.Button.kStart.value); // TODO Change these buttons
+  private final JoystickButton lowerIntake =
+      new JoystickButton(
+          driverController, XboxController.Button.kBumperLeft.value); // TODO Change these buttons
+
+  /// --- Subsystems --- ///
   private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private TowerSubsystem towerSubsystem = new TowerSubsystem();
+  private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final TowerSubsystem towerSubsystem = new TowerSubsystem();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drivetrainSubsystem.setDefaultCommand(new ArcadeDrive(drivetrainSubsystem, driverController));
 
-    // Configure the button bindings
     configureButtonBindings();
   }
 
@@ -45,7 +61,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    runTower.whenHeld(new RunTower(towerSubsystem, 1, 1));
+    runTowerUp.whenHeld(new RunTower(towerSubsystem, 1, 1));
+    runTowerDown.whenHeld(new RunTower(towerSubsystem, -1, -1));
+
+    runIntakeIn.whenHeld(new RunIntake(intakeSubsystem, 1));
+    runIntakeOut.whenHeld(new RunIntake(intakeSubsystem, 1));
+
+    // liftIntake.whenHeld(new LiftIntake(true)); // TODO create these commands
+    // lowerIntake.whenHeld(new LiftIntake(false)); // TODO create these commands
   }
 
   /**

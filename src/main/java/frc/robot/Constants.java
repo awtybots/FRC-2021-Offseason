@@ -15,24 +15,32 @@ package frc.robot;
 public final class Constants {
   public static class Drivetrain {
     public static final boolean invertRightSide = true;
-    public static final int rightFront = 1;
-    public static final int rightBack = 2;
-    public static final int leftFront = 3;
-    public static final int leftBack = 4;
+    public static final int rightFront = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final int rightBack = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final int leftFront = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final int leftBack = 0; // TODO fill these in with the correct CAN Bus IDs
   }
 
   public static class Tower {
     public static final boolean invertFrontMotor = false;
     public static final boolean invertBackMotor = false;
-    public static final int frontMotor = 1;
-    public static final int backMotor = 2;
-    public static final double maxSpeedBack = 0.75;
-    public static final double maxSpeedFront = 0.75;
+    public static final int frontMotor = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final int backMotor = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final double maxSpeedBack = 0.75; // TODO FIX
+    public static final double maxSpeedFront = 0.75; // TODO FIX
   }
 
   public static class Indexer {
     public static final boolean inverted = false;
-    public static final int indexerMotor = 1;
+    public static final int indexerMotor = 0; // TODO fill these in with the correct CAN Bus IDs
     public static final double maxSpeed = 0.35;
+  }
+
+  public static class Intake {
+    public static final boolean invertLifter = false;
+    public static final boolean invertRoller = false;
+    public static final int liftMotor = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final int rollerMotor = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final double rollerSpeed = 0;
   }
 }
