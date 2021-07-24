@@ -18,6 +18,8 @@ public class TowerSubsystem extends SubsystemBase {
   public TowerSubsystem() {
     frontMotor = new WPI_TalonSRX(Constants.Tower.frontMotor);
     backMotor = new WPI_TalonSRX(Constants.Tower.backMotor);
+    if (Constants.Tower.invertFrontMotor) frontMotor.setInverted(true);
+    if (Constants.Tower.invertBackMotor) backMotor.setInverted(true);
   }
 
   public void run(double frontSpeed, double backSpeed) {

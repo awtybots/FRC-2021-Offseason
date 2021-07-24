@@ -24,6 +24,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     backRight = new WPI_TalonFX(Constants.Drivetrain.rightBack);
     backLeft = new WPI_TalonFX(Constants.Drivetrain.leftBack);
 
+    if (Constants.Drivetrain.invertRightSide) {
+      frontRight.setInverted(true);
+      backRight.setInverted(true);
+    }
+
     backRight.follow(frontRight);
     backLeft.follow(frontLeft);
 

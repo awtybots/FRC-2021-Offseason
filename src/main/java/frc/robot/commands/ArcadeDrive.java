@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class DriveCommand extends CommandBase {
+public class ArcadeDrive extends CommandBase {
   /** Creates a new DriveCommand. */
   private DrivetrainSubsystem drivetrainSubsystem;
 
   private XboxController controller;
 
-  public DriveCommand(DrivetrainSubsystem sDrivetrainSubsystem, XboxController driveController) {
+  public ArcadeDrive(DrivetrainSubsystem sDrivetrainSubsystem, XboxController driveController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(sDrivetrainSubsystem);
     controller = driveController;

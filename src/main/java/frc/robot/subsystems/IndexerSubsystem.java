@@ -15,9 +15,10 @@ public class IndexerSubsystem extends SubsystemBase {
 
   public IndexerSubsystem() {
     indexerMotor = new WPI_TalonSRX(Constants.Indexer.indexerMotor);
+    if (Constants.Indexer.inverted) indexerMotor.setInverted(true);
   }
 
-  public void indexerrun(double indexerSpeed) {
-    indexerMotor.set(ControlMode.PercentOutput, indexerSpeed * Constants.Indexer.maxSpeed);
+  public void run(double speed) {
+    indexerMotor.set(ControlMode.PercentOutput, speed * Constants.Indexer.maxSpeed);
   }
 }

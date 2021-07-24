@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.RunTowerCommand;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.RunTower;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.TowerSubsystem;
 
@@ -32,7 +32,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    drivetrainSubsystem.setDefaultCommand(new DriveCommand(drivetrainSubsystem, driverController));
+    drivetrainSubsystem.setDefaultCommand(new ArcadeDrive(drivetrainSubsystem, driverController));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -45,7 +45,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    runTower.whenHeld(new RunTowerCommand(towerSubsystem, 1, 1));
+    runTower.whenHeld(new RunTower(towerSubsystem, 1, 1));
   }
 
   /**

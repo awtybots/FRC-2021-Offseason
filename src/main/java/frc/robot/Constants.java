@@ -14,6 +14,7 @@ package frc.robot;
  */
 public final class Constants {
   public static class Drivetrain {
+    public static final boolean invertRightSide = true;
     public static final int rightFront = 1;
     public static final int rightBack = 2;
     public static final int leftFront = 3;
@@ -21,6 +22,8 @@ public final class Constants {
   }
 
   public static class Tower {
+    public static final boolean invertFrontMotor = false;
+    public static final boolean invertBackMotor = false;
     public static final int frontMotor = 1;
     public static final int backMotor = 2;
     public static final double maxSpeedBack = 0.75;
@@ -28,7 +31,8 @@ public final class Constants {
   }
 
   public static class Indexer {
+    public static final boolean inverted = false;
     public static final int indexerMotor = 1;
-    public static final double maxSpeed = 0.75;
+    public static final double maxSpeed = 0.35;
   }
 }
