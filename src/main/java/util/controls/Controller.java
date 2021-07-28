@@ -11,32 +11,53 @@ public class Controller {
   private double kDeadzoneStick = 0.08;
   private double kDeadzoneTrigger = 0.1;
 
+  public JoystickButton buttonA;
+  public JoystickButton buttonX;
+  public JoystickButton buttonY;
+  public JoystickButton buttonB;
+  public JoystickButton buttonBack;
+  public JoystickButton buttonStart;
+
+  public JoystickButton bumperLeft;
+  public JoystickButton bumperRight;
+
+  public JoystickButton joystickClickLeft;
+  public JoystickButton joystickClickRight;
+
+  public POVButton dpadUp;
+  public POVButton dpadRight;
+  public POVButton dpadDown;
+  public POVButton dpadLeft;
+
+  public Button triggerLeft;
+  public Button triggerRight;
+
   public Controller(int port) {
     controller = new XboxController(port);
+
+    buttonA = createButton(XboxController.Button.kA.value);
+    buttonX = createButton(XboxController.Button.kX.value);
+    buttonY = createButton(XboxController.Button.kY.value);
+    buttonB = createButton(XboxController.Button.kB.value);
+    buttonBack = createButton(XboxController.Button.kBack.value);
+    buttonStart = createButton(XboxController.Button.kStart.value);
+
+    bumperLeft = createButton(XboxController.Button.kBumperLeft.value);
+    bumperRight = createButton(XboxController.Button.kBumperRight.value);
+
+    joystickClickLeft = createButton(XboxController.Button.kStickLeft.value);
+    joystickClickRight = createButton(XboxController.Button.kStickRight.value);
+
+    dpadUp = new POVButton(controller, 0);
+    dpadRight = new POVButton(controller, 90);
+    dpadDown = new POVButton(controller, 180);
+    dpadLeft = new POVButton(controller, 270);
+
+    triggerLeft = new Button(() -> getTrigger(Hand.kLeft) > 0);
+    triggerRight = new Button(() -> getTrigger(Hand.kRight) > 0);
   }
 
-  public JoystickButton buttonA = createButton(XboxController.Button.kA.value);
-  public JoystickButton buttonX = createButton(XboxController.Button.kX.value);
-  public JoystickButton buttonY = createButton(XboxController.Button.kY.value);
-  public JoystickButton buttonB = createButton(XboxController.Button.kB.value);
-  public JoystickButton buttonBack = createButton(XboxController.Button.kBack.value);
-  public JoystickButton buttonStart = createButton(XboxController.Button.kStart.value);
-
-  public JoystickButton bumperLeft = createButton(XboxController.Button.kBumperLeft.value);
-  public JoystickButton bumperRight = createButton(XboxController.Button.kBumperRight.value);
-
-  public JoystickButton joystickClickLeft = createButton(XboxController.Button.kStickLeft.value);
-  public JoystickButton joystickClickRight = createButton(XboxController.Button.kStickRight.value);
-
-  public POVButton dpadUp = new POVButton(controller, 0);
-  public POVButton dpadRight = new POVButton(controller, 90);
-  public POVButton dpadDown = new POVButton(controller, 180);
-  public POVButton dpadLeft = new POVButton(controller, 270);
-
-  public Button triggerLeft = new Button(() -> getTrigger(Hand.kLeft) > 0);
-  public Button triggerRight = new Button(() -> getTrigger(Hand.kRight) > 0);
-
-  private double getTrigger(Hand hand) {
+  public double getTrigger(Hand hand) {
     return deadzone(controller.getTriggerAxis(hand), kDeadzoneTrigger);
   }
 

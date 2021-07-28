@@ -14,64 +14,46 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import util.controls.Controller;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-  private final Controller driver = new Controller(0);
-  private final Controller operator = new Controller(1);
+  private final Controller controller1 = new Controller(0);
+  private final Controller controller2 = new Controller(1);
 
-  /* Driver Buttons */
-  private final Button intakeBalls = driver.triggerRight;
-
-  /* Operator Buttons */
-  private final JoystickButton shootClose = operator.buttonA;
-  private final JoystickButton shootMid = operator.buttonX;
-  private final JoystickButton shootFar = operator.buttonB;
-  private final JoystickButton shootAuto = operator.buttonY;
-
-  private final JoystickButton unjam = operator.bumperLeft;
-
-  /* Subsystems */
-  private final DrivetrainSubsystem s_Drive = new DrivetrainSubsystem();
-  private final IntakeSubsystem s_Intake = new IntakeSubsystem();
-  private final IndexerSubsystem s_Indexer = new IndexerSubsystem();
-  private final TowerSubsystem s_Tower = new TowerSubsystem();
-  private final ShooterSubsystem s_Shooter = new ShooterSubsystem();
-  private final TurretSubsystem s_Turret = new TurretSubsystem();
-  private final LimelightSubsystem s_Limelight =
-      new LimelightSubsystem(Limelight.mountingHeight, Limelight.mountingAngle);
-  private final AutoShootSolver s_AutoShootSolver =
-      new AutoShootSolver.AutoShootInterpolationSolver();
+  // subsystems
+  public static final DrivetrainSubsystem s_Drivetrain = new DrivetrainSubsystem();
+  public static final IntakeSubsystem s_Intake = new IntakeSubsystem();
+  public static final IndexerSubsystem s_Indexer = new IndexerSubsystem();
+  public static final TowerSubsystem s_Tower = new TowerSubsystem();
+  public static final ShooterSubsystem s_Shooter = new ShooterSubsystem();
+  public static final TurretSubsystem s_Turret = new TurretSubsystem();
+  public static final LimelightSubsystem s_Limelight = new LimelightSubsystem();
+  public static final AutoShootSolver s_AutoShootSolver = new AutoShootSolver.AutoShootInterpolationSolver();
 
   private SendableChooser<Command> autonSelector = new SendableChooser<>();
 
   public RobotContainer() {
-    s_Drive.setDefaultCommand(new ArcadeDrive(s_Drive, driver));
-    configureButtonBindings();
-
-    /// ---- Autonomous Commands ---- ///
-    autonSelector.setDefaultOption("Do Nothing", new InstantCommand());
   }
 
-  private void configureButtonBindings() {
-    /// ---- Driver Controls ---- ///
-    intakeBalls.whenHeld(new IntakeBalls(s_Intake, s_Indexer, s_Tower));
-
-    /// ---- Operator Controls ---- ///
-    unjam.whenHeld(new Unjam(s_Indexer, s_Tower));
-
-    shootClose.whenHeld(new ManualShoot(s_Shooter, 3700, 76));
-    shootMid.whenHeld(new ManualShoot(s_Shooter, 4200, 58));
-    shootFar.whenHeld(new ManualShoot(s_Shooter, 5600, 50));
-    shootAuto.whenHeld(
-        new AutoShoot(s_Indexer, s_Tower, s_Turret, s_Shooter, s_Limelight, s_AutoShootSolver));
+  public void autonSetup() {
+    autonSelector.setDefaultOption("Do Nothing", new InstantCommand());
+    // TODO ...
   }
 
   public Command getAutonomousCommand() {
     return autonSelector.getSelected();
+  }
+
+  public void bindIO() {
+    s_Drivetrain.setDefaultCommand(new TeleopDrive(controller1));
+
+    // driver
+    controller1.bumperRight.whenHeld(new IntakeBalls());
+
+    // operator
+    controller2.bumperLeft.whenHeld(new Unjam());
+
+    controller2.buttonA.whenHeld(new ManualShoot(3700, 76));
+    controller2.buttonX.whenHeld(new ManualShoot(4200, 58));
+    controller2.buttonB.whenHeld(new ManualShoot(5600, 50));
+    controller2.buttonY.whenHeld(new AutoShoot());
   }
 }

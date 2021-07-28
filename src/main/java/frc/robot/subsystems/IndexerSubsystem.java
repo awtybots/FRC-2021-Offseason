@@ -11,28 +11,25 @@ import frc.robot.Constants.Indexer;
 
 public class IndexerSubsystem extends SubsystemBase {
 
-  private TalonSRX leftMotor;
-  private TalonSRX rightMotor;
+  private TalonSRX motor;
 
   public IndexerSubsystem() {
-    leftMotor = new TalonSRX(Indexer.leftMotorID);
-    rightMotor = new TalonSRX(Indexer.rightMotorID);
-    rightMotor.setInverted(true);
+    motor = new TalonSRX(Indexer.motorID);
+    motor.configFactoryDefault();
 
     stop();
   }
 
   private void run(double x) {
-    leftMotor.set(ControlMode.PercentOutput, Indexer.leftSpeed * x);
-    rightMotor.set(ControlMode.PercentOutput, Indexer.rightSpeed * x);
+    motor.set(ControlMode.PercentOutput, x);
   }
 
   public void start() {
-    run(1.0);
+    run(Indexer.shootingPercentOutput);
   }
 
-  public void startForUnjamming() {
-    run(-1.0);
+  public void unjam() {
+    run(Indexer.unjammingPercentOutput);
   }
 
   public void stop() {

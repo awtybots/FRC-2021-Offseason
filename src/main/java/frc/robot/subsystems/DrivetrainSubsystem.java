@@ -17,11 +17,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private WPI_TalonFX driveRightFront;
   private WPI_TalonFX driveRightBack;
 
-  private DifferentialDrive m_robotDrive;
+  private DifferentialDrive diffDrive;
 
-  /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
-
     driveLeftFront = new WPI_TalonFX(Drive.leftMotor1ID);
     driveLeftBack = new WPI_TalonFX(Drive.leftMotor2ID);
     driveRightFront = new WPI_TalonFX(Drive.rightMotor1ID);
@@ -30,15 +28,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     driveLeftFront.follow(driveLeftBack);
     driveRightFront.follow(driveRightBack);
 
-    m_robotDrive = new DifferentialDrive(driveLeftFront, driveRightFront);
+    diffDrive = new DifferentialDrive(driveLeftFront, driveRightFront);
   }
 
   public void drive(double speed, double rotation) {
-    m_robotDrive.arcadeDrive(speed, rotation);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+    diffDrive.arcadeDrive(speed, rotation);
   }
 }

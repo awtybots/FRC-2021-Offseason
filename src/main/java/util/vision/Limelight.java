@@ -2,8 +2,9 @@ package util.vision;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Limelight {
+public class Limelight extends SubsystemBase {
 
   private double mountingHeight;
   private double mountingAngle;
@@ -64,7 +65,7 @@ public class Limelight {
     return netTable.getEntry(entry.setter).setDouble(value);
   }
 
-  private enum LEDMode {
+  public enum LEDMode {
     /** Uses the default mode set in the active Pipeline */
     PipelineDefault,
     Off,

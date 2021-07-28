@@ -5,26 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.subsystems.IndexerSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.TowerSubsystem;
+import static frc.robot.RobotContainer.*;
 
 public class IntakeBalls extends StartEndCommand {
 
-  public IntakeBalls(IntakeSubsystem s_Intake, IndexerSubsystem s_Indexer, TowerSubsystem s_Tower) {
-    super(
-        () -> {
-          s_Intake.toggle(true, true);
-          s_Indexer.start();
-          s_Tower.startForIntaking();
-        },
-        () -> {
-          s_Intake.toggle(false, false);
-          s_Indexer.stop();
-          s_Tower.stop();
-        },
-        s_Intake,
-        s_Indexer,
-        s_Tower);
+  public IntakeBalls() { // TODO arm position
+    super(() -> {
+      s_Intake.toggleRoller(true);
+    }, () -> {
+      s_Intake.toggleRoller(false);
+    }, s_Intake);
   }
 }

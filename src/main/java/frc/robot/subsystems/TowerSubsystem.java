@@ -9,48 +9,36 @@ import static frc.robot.Constants.Tower;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.States;
-import frc.robot.States.TowerState;
 
 public class TowerSubsystem extends SubsystemBase {
 
-  private final TalonSRX motor;
+  private final TalonSRX motor1, motor2;
 
   public TowerSubsystem() {
-    motor = new TalonSRX(Tower.motorID);
-    motor.configFactoryDefault();
+    motor1 = new TalonSRX(Tower.motor1ID);
+    motor2 = new TalonSRX(Tower.motor2ID);
+
+    motor1.configFactoryDefault();
+    motor2.configFactoryDefault();
+    motor2.setInverted(true);
+
     stop();
   }
 
-  public void startForIntaking() {
-    States.towerState = TowerState.intaking;
-    motor.set(ControlMode.PercentOutput, Tower.intakingSpeed);
+  private void run(double x) {
+    motor1.set(ControlMode.PercentOutput, x);
+    motor2.set(ControlMode.PercentOutput, x);
   }
 
-  public void startForShooting() {
-    States.towerState = TowerState.shooting;
-    motor.set(ControlMode.PercentOutput, Tower.shootingSpeed);
+  public void start() {
+    run(Tower.shootingPercentOutput);
   }
 
-  public void startForUnjamming() {
-    States.towerState = TowerState.unjamming;
-    motor.set(ControlMode.PercentOutput, Tower.unjammingSpeed);
+  public void unjam() {
+    run(Tower.unjammingPercentOutput);
   }
 
   public void stop() {
-    States.towerState = TowerState.idle;
-    motor.set(ControlMode.PercentOutput, 0.0);
-  }
-
-  @Override
-  public void periodic() {
-    switch (States.towerState) {
-      case intaking:
-        // TODO check for limit switch and stop if full
-        break;
-
-      default:
-        break;
-    }
+    run(0.0);
   }
 }

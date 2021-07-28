@@ -7,24 +7,30 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.Intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  private final TalonSRX motor;
-  private final DoubleSolenoid pistons;
+  private final TalonSRX rollerMotor;
+  private final TalonSRX armMotor;
 
   public IntakeSubsystem() {
-    pistons = new DoubleSolenoid(Intake.pistonDown, Intake.pistonUp);
-    motor = new TalonSRX(Intake.motorID);
-    motor.configFactoryDefault();
-    toggle(false, false);
+    armMotor = new TalonSRX(Intake.armMotorID);
+    armMotor.configFactoryDefault();
+    armMotor.setNeutralMode(NeutralMode.Brake);
+    armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    armMotor.setSelectedSensorPosition(0);
+
+    rollerMotor = new TalonSRX(Intake.rollerMotorID);
+    rollerMotor.configFactoryDefault();
+
+    armMotor.set(ControlMode.PercentOutput, Intake.armStallPercentOutput);
   }
 
-  public void toggle(boolean down, boolean runMotor) {
-    pistons.set(down ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
-    motor.set(ControlMode.PercentOutput, runMotor ? Intake.speed : 0);
+  public void toggleRoller(boolean on) {
+    rollerMotor.set(ControlMode.PercentOutput, on ? Intake.rollerPercentOutput : 0);
   }
 }

@@ -4,14 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants.Turret;
-import frc.robot.States;
-import frc.robot.States.TurretState;
 
 public class TurretSubsystem extends SubsystemBase {
 
@@ -21,6 +18,7 @@ public class TurretSubsystem extends SubsystemBase {
   public TurretSubsystem() {
     turret = new TalonSRX(Turret.motorID);
     turret.configFactoryDefault();
+
     turret.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     turret.setSelectedSensorPosition(
         Turret.homeAngle / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
@@ -39,28 +37,13 @@ public class TurretSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    switch (States.turretState) {
-      case home:
-        setpoint = Turret.homeAngle; // home state is just targeting home
-      case targeting:
-        turret.set(
-            ControlMode.Position,
-            setpoint / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
-        break;
-      case calibrating:
-        // TODO SmartDashboard PID calibrating suite
-        break;
-      case disabled:
-      default:
-        turret.set(ControlMode.PercentOutput, 0);
-        break;
-    }
+    // TODO
   }
 
   // PUBLIC METHODS
 
   public void returnToHome() {
-    States.turretState = TurretState.home;
+    // TODO
   }
 
   /**
@@ -82,15 +65,11 @@ public class TurretSubsystem extends SubsystemBase {
     if (setpoint < 0) setpoint += 360;
     setpoint = MathUtil.clamp(setpoint, Turret.minAngle, Turret.maxAngle);
 
-    States.turretState = TurretState.targeting;
+    // TODO
   }
 
   public boolean isAtGoal() {
     double angleError = turret.getClosedLoopError() / 2048.0 * Turret.pulleyRatio * 360.0;
     return Math.abs(angleError) < Turret.angleAcceptableError;
-  }
-
-  public void disable() {
-    States.turretState = TurretState.disabled;
   }
 }

@@ -13,7 +13,6 @@ public interface AutoShootSolver {
   public Pair<Double, Double> solve(Vector2 powerPortOffset);
 
   public class AutoShootProjectileMotionSolver implements AutoShootSolver {
-
     private final ProjectileMotionSimulation projectileMotionSimulation =
         new ProjectileMotionSimulation(
             Field.ballMass, Sphere.frontalArea(Field.ballRadius), Sphere.dragCoefficient);
@@ -34,7 +33,6 @@ public interface AutoShootSolver {
   }
 
   public class AutoShootInterpolationSolver implements AutoShootSolver {
-
     private final InterpolationMap<Pair<Double, Double>> interpolationMap =
         new InterpolationMap<>();
 
