@@ -30,11 +30,11 @@ public class TowerSubsystem extends SubsystemBase {
     backMotor.set(ControlMode.PercentOutput, x);
   }
 
-  public void start() {
+  public void startForShooting() {
     run(Tower.shootingPercentOutput);
   }
 
-  public void unjam() {
+  public void startForUnjamming() {
     run(Tower.unjammingPercentOutput);
   }
 

@@ -13,8 +13,10 @@ public class LowerAndRunIntake extends StartEndCommand {
     super(() -> {
       s_Intake.toggleArm(true);
       s_Intake.toggleRoller(true);
+      s_Indexer.startForIntaking();
     }, () -> {
       s_Intake.toggleRoller(false);
-    }, s_Intake);
+      s_Indexer.stop();
+    }, s_Intake, s_Indexer);
   }
 }

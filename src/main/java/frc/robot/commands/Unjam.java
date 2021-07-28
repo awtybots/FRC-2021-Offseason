@@ -7,8 +7,8 @@ public class Unjam extends StartEndCommand {
 
   public Unjam() {
     super(() -> {
-      s_Indexer.unjam();
-      s_Tower.unjam();
+      s_Indexer.startForUnjamming();
+      s_Tower.startForUnjamming();
     }, () -> {
       s_Indexer.stop();
       s_Tower.stop();

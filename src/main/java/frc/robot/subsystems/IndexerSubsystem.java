@@ -24,11 +24,15 @@ public class IndexerSubsystem extends SubsystemBase {
     motor.set(ControlMode.PercentOutput, x);
   }
 
-  public void start() {
+  public void startForIntaking() {
+    run(Indexer.intakingPercentOutput);
+  }
+
+  public void startForShooting() {
     run(Indexer.shootingPercentOutput);
   }
 
-  public void unjam() {
+  public void startForUnjamming() {
     run(Indexer.unjammingPercentOutput);
   }
 

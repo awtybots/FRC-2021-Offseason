@@ -5,19 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import static frc.robot.RobotContainer.*;
 
-public class ManualShoot extends CommandBase {
+public class ManualShootWithTurret extends CommandBase {
 
   private double flywheelRpm;
   private double hoodLaunchAngle;
 
-  public ManualShoot(double flywheelRpm, double hoodLaunchAngle) {
+  public ManualShootWithTurret(double flywheelRpm, double hoodLaunchAngle) {
     this.flywheelRpm = flywheelRpm;
     this.hoodLaunchAngle = hoodLaunchAngle;
 
-    addRequirements(s_Shooter, s_Tower, s_Indexer);
+    addRequirements(s_Shooter, s_Turret, s_Indexer, s_Tower, s_Limelight);
   }
 
   @Override
@@ -25,12 +24,16 @@ public class ManualShoot extends CommandBase {
     s_Shooter.setFlywheelRpm(flywheelRpm);
     s_Shooter.setHoodLaunchAngle(hoodLaunchAngle);
     s_Shooter.periodic(); // updates the errors so the first execute() doesn't enable tower
+    
+    s_Limelight.toggleForPowerPort(true);
   }
 
   @Override
   public void execute() {
-    
-    if (s_Shooter.isFlywheelAtGoal()) {
+    if (s_Limelight.hasVisibleTarget())
+      s_Turret.rotateBy(s_Limelight.targetXOffset());
+
+    if (s_Shooter.isFlywheelAtGoal() && s_Turret.isAtGoal()) {
       s_Tower.startForShooting();
       s_Indexer.startForShooting();
     }
@@ -41,6 +44,9 @@ public class ManualShoot extends CommandBase {
     s_Shooter.standby();
     s_Tower.stop();
     s_Indexer.stop();
+    s_Turret.returnToHome();
+
+    s_Limelight.toggleForPowerPort(false);
   }
 
   @Override
