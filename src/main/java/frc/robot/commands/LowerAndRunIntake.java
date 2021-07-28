@@ -7,10 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.RobotContainer.*;
 
-public class IntakeBalls extends StartEndCommand {
+public class LowerAndRunIntake extends StartEndCommand {
 
-  public IntakeBalls() { // TODO arm position
+  public LowerAndRunIntake() {
     super(() -> {
+      s_Intake.toggleArm(true);
       s_Intake.toggleRoller(true);
     }, () -> {
       s_Intake.toggleRoller(false);

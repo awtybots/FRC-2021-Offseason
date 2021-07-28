@@ -25,6 +25,12 @@ public final class Constants {
     public static final int armMotorID = 1;
     public static final int rollerMotorID = 2;
 
+    public static final double armGearRatio = 24.0 / 72.0;
+    public static final double armAngleUp = -10; // degrees, straight up is 0
+    public static final double armAngleDown = 105; // degrees
+    public static final double armAngleAcceptableError = 5; // degrees;
+    public static final double armMoveTimeout = 5.0; // seconds
+
     public static final double armStallPercentOutput = 0.1;
     public static final double armDownPercentOutput = -0.25;
     public static final double armUpPercentOutput = 0.25;
@@ -33,8 +39,8 @@ public final class Constants {
   }
 
   public static final class Tower {
-    public static final int motor1ID = 5;
-    public static final int motor2ID = 7;
+    public static final int frontMotorID = 5;
+    public static final int backMotorID = 7;
 
     public static final double shootingPercentOutput = 0.8;
     public static final double unjammingPercentOutput = -0.8;
@@ -49,13 +55,13 @@ public final class Constants {
 
   public static final class Shooter {
     public static final int flywheelMotorID = 15;
-    public static final double flywheelGearRatio = 1.0; // TODO
+    public static final double flywheelGearRatio = 12.0 / 36.0 * 58.0 / 18.0;
     public static final double flywheelMaxRpm = 6400.0;
     public static final double flywheelRpmAcceptableError = 50.0;
     public static final double flywheelRadius = 0.051; // meters
 
     public static final int hoodMotorID = 6;
-    public static final double hoodGearRatio = 1.0; // TODO
+    public static final double hoodGearRatio = 30.0 / 72.0;
     public static final double minHoodLaunchAngle = 56.0;
     public static final double maxHoodLaunchAngle = 76.0;
     public static final double hoodLaunchAngleAcceptableError = 1.0; // TODO
@@ -76,10 +82,10 @@ public final class Constants {
 
     public static final double homeAngle = 180;
     public static final double minAngle = 135;
-    public static final double maxAngle = 360;
+    public static final double maxAngle = 359.9;
     public static final double angleAcceptableError = 2.0; // TODO
 
-    public static final double pulleyRatio = 1.0 / 200.0;
+    public static final double gearRatio = 1.0 / 15.0; // TODO
     public static final double maxSpeed = 0.5;
   }
 

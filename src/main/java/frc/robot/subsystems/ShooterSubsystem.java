@@ -14,11 +14,6 @@ import frc.robot.Constants.Shooter;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  /* --- TODO ---
-   * Tuning
-   * - set PID + goal for both
-   * - tune shots into interpolatable map
-   */
   private TalonFX flywheelMotor;
   private TalonSRX hoodMotor;
   private double[] setpoints;

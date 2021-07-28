@@ -12,22 +12,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TowerSubsystem extends SubsystemBase {
 
-  private final TalonSRX motor1, motor2;
+  private final TalonSRX frontMotor, backMotor;
 
   public TowerSubsystem() {
-    motor1 = new TalonSRX(Tower.motor1ID);
-    motor2 = new TalonSRX(Tower.motor2ID);
+    frontMotor = new TalonSRX(Tower.frontMotorID);
+    frontMotor.configFactoryDefault();
 
-    motor1.configFactoryDefault();
-    motor2.configFactoryDefault();
-    motor2.setInverted(true);
+    backMotor = new TalonSRX(Tower.backMotorID);
+    backMotor.configFactoryDefault();
+    backMotor.setInverted(true);
 
     stop();
   }
 
   private void run(double x) {
-    motor1.set(ControlMode.PercentOutput, x);
-    motor2.set(ControlMode.PercentOutput, x);
+    frontMotor.set(ControlMode.PercentOutput, x);
+    backMotor.set(ControlMode.PercentOutput, x);
   }
 
   public void start() {

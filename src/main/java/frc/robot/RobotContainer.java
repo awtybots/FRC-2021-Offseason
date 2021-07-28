@@ -7,9 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.Limelight;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import util.controls.Controller;
@@ -46,7 +43,8 @@ public class RobotContainer {
     s_Drivetrain.setDefaultCommand(new TeleopDrive(controller1));
 
     // driver
-    controller1.bumperRight.whenHeld(new IntakeBalls());
+    controller1.bumperRight.whenHeld(new LowerAndRunIntake());
+    controller1.bumperLeft.whenHeld(new RaiseIntake());
 
     // operator
     controller2.bumperLeft.whenHeld(new Unjam());

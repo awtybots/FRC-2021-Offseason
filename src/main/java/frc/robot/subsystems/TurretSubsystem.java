@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,38 +13,31 @@ import frc.robot.Constants.Turret;
 
 public class TurretSubsystem extends SubsystemBase {
 
-  private TalonSRX turret;
-  private double setpoint;
+  private TalonSRX motor;
+
+  private final double sensorRatio = 1.0 / 4096.0 * Turret.gearRatio * 360.0;
 
   public TurretSubsystem() {
-    turret = new TalonSRX(Turret.motorID);
-    turret.configFactoryDefault();
+    motor = new TalonSRX(Turret.motorID);
+    motor.configFactoryDefault();
 
-    turret.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    turret.setSelectedSensorPosition(
-        Turret.homeAngle / 360.0 / Turret.pulleyRatio * 2048.0); // TODO conversions math util
-    turret.config_kP(0, 0); // TODO
-    turret.config_kI(0, 0);
-    turret.config_kD(0, 0);
-    turret.config_kF(0, 0);
+    motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    motor.setSelectedSensorPosition(Turret.homeAngle / sensorRatio);
+    motor.configSelectedFeedbackCoefficient(sensorRatio); // ? does it multiply the sensor pos too
+    motor.config_kP(0, 0.1);
+    motor.config_kI(0, 0);
+    motor.config_kD(0, 0);
+    motor.config_kF(0, 0);
   }
 
   private double getCurrentAngle() {
-    double encoderPos = turret.getSelectedSensorPosition();
-    double currentAngle =
-        (encoderPos / 2048.0) * Turret.pulleyRatio * 360.0; // TODO conversions math util
-    return currentAngle;
-  }
-
-  @Override
-  public void periodic() {
-    // TODO
+    return motor.getSelectedSensorPosition() * sensorRatio;
   }
 
   // PUBLIC METHODS
 
   public void returnToHome() {
-    // TODO
+    rotateTo(Turret.homeAngle);
   }
 
   /**
@@ -61,15 +55,15 @@ public class TurretSubsystem extends SubsystemBase {
    * @param angle absolute angle to rotate to, where 180 is straight ahead, 90 is left, 270 is right
    */
   public void rotateTo(double angle) {
-    setpoint = angle % 360;
-    if (setpoint < 0) setpoint += 360;
+    double setpoint = angle % 360.0;
+    if (setpoint < 0.0) setpoint += 360.0;
     setpoint = MathUtil.clamp(setpoint, Turret.minAngle, Turret.maxAngle);
 
-    // TODO
+    motor.set(ControlMode.Position, setpoint / sensorRatio);
   }
 
   public boolean isAtGoal() {
-    double angleError = turret.getClosedLoopError() / 2048.0 * Turret.pulleyRatio * 360.0;
+    double angleError = motor.getClosedLoopError() * sensorRatio;
     return Math.abs(angleError) < Turret.angleAcceptableError;
   }
 }
