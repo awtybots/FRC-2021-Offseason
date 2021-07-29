@@ -26,8 +26,17 @@ public class Robot extends TimedRobot {
 
     robotContainer = new RobotContainer();
     robotContainer.autonSetup();
-  }
 
+    System.out.println(" ________  ________    _______  ________       ");
+    System.out.println("|\\   ____\\|\\   __  \\  /  ___  \\|\\  ___  \\      ");
+    System.out.println("\\ \\  \\___|\\ \\  \\|\\  \\/__/|_/  /\\ \\____   \\     ");
+    System.out.println(" \\ \\_____  \\ \\   __  \\__|//  / /\\|____|\\  \\    ");
+    System.out.println("  \\|____|\\  \\ \\  \\|\\  \\  /  /_/__   __\\_\\  \\   ");
+    System.out.println("    ____\\_\\  \\ \\_______\\|\\________\\|\\_______\\  ");
+    System.out.println("    |\\_________\\|_______| \\|_______|\\|_______| ");
+    System.out.println("    \\|_________|                               ");
+  }                             
+                                                   
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();

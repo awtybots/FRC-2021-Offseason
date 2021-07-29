@@ -17,10 +17,10 @@ public class TowerSubsystem extends SubsystemBase {
   public TowerSubsystem() {
     frontMotor = new TalonSRX(Tower.frontMotorID);
     frontMotor.configFactoryDefault();
+    frontMotor.setInverted(true);
 
     backMotor = new TalonSRX(Tower.backMotorID);
     backMotor.configFactoryDefault();
-    backMotor.setInverted(true);
 
     stop();
   }

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 public class Controller {
   private XboxController controller;
   private double kDeadzoneStick = 0.08;
-  private double kDeadzoneTrigger = 0.1;
+  private double kDeadzoneTrigger = 0.05;
 
   public JoystickButton buttonA;
   public JoystickButton buttonX;

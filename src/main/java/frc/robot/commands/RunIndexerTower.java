@@ -7,16 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.RobotContainer.*;
 
-public class LowerAndRunIntake extends StartEndCommand {
+public class RunIndexerTower extends StartEndCommand {
 
-  public LowerAndRunIntake() {
+  public RunIndexerTower() {
     super(() -> {
-      s_Intake.toggleArm(true);
-      s_Intake.toggleRoller(true);
-      // s_Indexer.startForIntaking();
+      s_Indexer.startForShooting();
+      s_Tower.startForShooting();
     }, () -> {
-      s_Intake.toggleRoller(false);
-      // s_Indexer.stop();
-    }, s_Intake);
+      s_Indexer.stop();
+      s_Tower.stop();
+    }, s_Indexer, s_Tower);
   }
 }

@@ -47,11 +47,14 @@ public class RobotContainer {
     controller1.bumperLeft.whenHeld(new RaiseIntake());
 
     // operator
+    controller2.buttonBack.whenHeld(new TestCommand());
+
     controller2.bumperLeft.whenHeld(new Unjam());
+    controller2.bumperRight.whenHeld(new RunIndexerTower());
 
     controller2.buttonA.whenHeld(new ManualShoot(3700, 76));
-    controller2.buttonX.whenHeld(new ManualShoot(4200, 58));
-    controller2.buttonB.whenHeld(new ManualShoot(5600, 50));
+    controller2.buttonX.whenHeld(new ManualShoot(4200, 66));
+    controller2.buttonB.whenHeld(new ManualShoot(5400, 56));
     controller2.buttonY.whenHeld(new AutoShoot());
   }
 }

@@ -29,7 +29,6 @@ public class ManualShoot extends CommandBase {
 
   @Override
   public void execute() {
-    
     if (s_Shooter.isFlywheelAtGoal()) {
       s_Tower.startForShooting();
       s_Indexer.startForShooting();

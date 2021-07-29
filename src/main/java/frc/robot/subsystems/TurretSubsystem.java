@@ -30,12 +30,13 @@ public class TurretSubsystem extends SubsystemBase {
 
     motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     motor.setSelectedSensorPosition(currentAngle / sensorRatio);
-    motor.configSelectedFeedbackCoefficient(sensorRatio); // ? does it multiply the sensor pos too
     motor.configClosedloopRamp(0.1);
-    motor.config_kP(0, 0.01); // TODO
+    motor.config_kP(0, 0.1); // TODO
     motor.config_kI(0, 0);
     motor.config_kD(0, 0);
     motor.config_kF(0, 0);
+
+    SmartDashboard.putNumber("Turret Manual Angle", currentAngle);
   }
 
   @Override
@@ -46,6 +47,8 @@ public class TurretSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Turret Goal Angle", goalAngle);
     SmartDashboard.putNumber("Turret Current Angle", currentAngle);
     SmartDashboard.putBoolean("Turret At Goal", atGoal);
+
+    rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle)); // ! TODO remove
   }
 
   // PUBLIC METHODS

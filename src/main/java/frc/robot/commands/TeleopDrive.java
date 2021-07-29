@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.Pair;
-import frc.robot.RobotContainer;
+import static frc.robot.RobotContainer.*;
 import util.controls.Controller;
 
 public class TeleopDrive extends CommandBase {
@@ -16,13 +16,18 @@ public class TeleopDrive extends CommandBase {
 
   public TeleopDrive(Controller controller) {
     this.controller = controller;
-    addRequirements(RobotContainer.s_Drivetrain);
+    addRequirements(s_Drivetrain);
   }
 
   @Override
   public void execute() {
     Pair<Double, Double> driveInputs = gtaDrive();
-    RobotContainer.s_Drivetrain.drive(driveInputs.getFirst(), driveInputs.getSecond());
+    s_Drivetrain.drive(driveInputs.getFirst(), driveInputs.getSecond());
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    s_Drivetrain.stop();
   }
 
   @SuppressWarnings("unused")

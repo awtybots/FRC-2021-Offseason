@@ -31,6 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
     armMotor = new TalonSRX(Intake.armMotorID);
     armMotor.configFactoryDefault();
     armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    armMotor.setSensorPhase(true);
     armMotor.setSelectedSensorPosition(Intake.armAngleUp / armSensorRatio);
     setArmMotor(Intake.armStallPercentOutput);
 
@@ -65,8 +66,8 @@ public class IntakeSubsystem extends SubsystemBase {
     if(down == armDown) return;
 
     armDown = down;
-    armMoving = true;
     armMoveTimer.reset();
+    armMoving = true;
 
     if(armDown) {
       setArmMotor(Intake.armDownPercentOutput);
@@ -78,6 +79,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   private void setArmMotor(double x) {
+    SmartDashboard.putNumber("Intake Motor Output", x);
     armMotor.set(ControlMode.PercentOutput, x);
   }
 
