@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Shooter;
@@ -58,38 +57,38 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     flywheelCurrentRpm = flywheelMotor.getSelectedSensorVelocity();
-    flywheelAtGoal = Math.abs(flywheelCurrentRpm - flywheelGoalRpm) < Shooter.flywheelRpmAcceptableError;
+    flywheelAtGoal =
+        Math.abs(flywheelCurrentRpm - flywheelGoalRpm) < Shooter.flywheelRpmAcceptableError;
 
     SmartDashboard.putNumber("Flywheel Current RPM", flywheelCurrentRpm);
     SmartDashboard.putNumber("Flywheel Goal RPM", flywheelGoalRpm);
     SmartDashboard.putBoolean("Flywheel At Goal", flywheelAtGoal);
 
     hoodCurrentLaunchAngle = hoodMotor.getSelectedSensorPosition() * hoodSensorRatio;
-    hoodAtGoal = Math.abs(hoodCurrentLaunchAngle - hoodGoalLaunchAngle) < Shooter.hoodLaunchAngleAcceptableError;
-    
+    hoodAtGoal =
+        Math.abs(hoodCurrentLaunchAngle - hoodGoalLaunchAngle)
+            < Shooter.hoodLaunchAngleAcceptableError;
+
     SmartDashboard.putNumber("Hood Current Angle", hoodCurrentLaunchAngle);
     SmartDashboard.putNumber("Hood Goal Angle", hoodGoalLaunchAngle);
     SmartDashboard.putBoolean("Hood At Goal", hoodAtGoal);
 
-    setHoodLaunchAngle(SmartDashboard.getNumber("Hood Manual Angle", hoodCurrentLaunchAngle)); // ! TODO remove
+    setHoodLaunchAngle(
+        SmartDashboard.getNumber("Hood Manual Angle", hoodCurrentLaunchAngle)); // ! TODO remove
   }
 
   // PUBLIC METHODS
 
   public void setFlywheelRpm(double rpm) {
-    if (rpm < 0.0 || rpm > Shooter.flywheelMaxRpm)
-      return;
+    if (rpm < 0.0 || rpm > Shooter.flywheelMaxRpm) return;
 
-    if (rpm != 0.0)
-      flywheelMotor.set(ControlMode.Velocity, rpm);
-    else
-      flywheelMotor.set(ControlMode.PercentOutput, 0);
+    if (rpm != 0.0) flywheelMotor.set(ControlMode.Velocity, rpm);
+    else flywheelMotor.set(ControlMode.PercentOutput, 0);
     flywheelGoalRpm = rpm;
   }
 
   public void setHoodLaunchAngle(double angle) {
-    if (angle < Shooter.minHoodLaunchAngle || Shooter.maxHoodLaunchAngle < angle)
-      return;
+    if (angle < Shooter.minHoodLaunchAngle || Shooter.maxHoodLaunchAngle < angle) return;
 
     hoodMotor.set(ControlMode.Position, angle / hoodSensorRatio);
     hoodGoalLaunchAngle = angle;

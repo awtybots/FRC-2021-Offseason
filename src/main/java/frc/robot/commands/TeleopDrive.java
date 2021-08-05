@@ -4,10 +4,11 @@
 
 package frc.robot.commands;
 
+import static frc.robot.RobotContainer.*;
+
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.Pair;
-import static frc.robot.RobotContainer.*;
 import util.controls.Controller;
 
 public class TeleopDrive extends CommandBase {

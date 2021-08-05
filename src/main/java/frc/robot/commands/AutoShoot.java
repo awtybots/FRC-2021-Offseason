@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import static frc.robot.RobotContainer.*;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.Pair;
@@ -8,15 +10,14 @@ import frc.robot.Constants.Shooter;
 import util.math.Vector2;
 import util.vision.VisionTarget;
 
-import static frc.robot.RobotContainer.*;
-
 public class AutoShoot extends CommandBase {
   private final VisionTarget powerPortVisionTarget;
 
   public AutoShoot() {
     addRequirements(s_Indexer, s_Tower, s_Turret, s_Shooter, s_Limelight);
 
-    powerPortVisionTarget = new VisionTarget(s_Limelight, Field.powerPortVisionTargetHeight, Field.powerPortHeight);
+    powerPortVisionTarget =
+        new VisionTarget(s_Limelight, Field.powerPortVisionTargetHeight, Field.powerPortHeight);
   }
 
   @Override
@@ -26,8 +27,7 @@ public class AutoShoot extends CommandBase {
 
   @Override
   public void execute() {
-    if (!s_Limelight.hasVisibleTarget())
-      return;
+    if (!s_Limelight.hasVisibleTarget()) return;
 
     s_Turret.rotateBy(s_Limelight.targetXOffset());
 
@@ -40,14 +40,15 @@ public class AutoShoot extends CommandBase {
 
     boolean solution = !Double.isNaN(goalLaunchVelocity);
     SmartDashboard.putBoolean("Projectile Motion Solution", solution);
-    if (!solution)
-      return;
+    if (!solution) return;
 
-    double goalFlywheelRpm = goalLaunchVelocity / (Shooter.flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
+    double goalFlywheelRpm =
+        goalLaunchVelocity / (Shooter.flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
     s_Shooter.setFlywheelRpm(goalFlywheelRpm);
     s_Shooter.setHoodLaunchAngle(goalLaunchAngle);
 
-    boolean readyToShoot = s_Shooter.isFlywheelAtGoal() && s_Shooter.isHoodAtGoal() && s_Turret.isAtGoal();
+    boolean readyToShoot =
+        s_Shooter.isFlywheelAtGoal() && s_Shooter.isHoodAtGoal() && s_Turret.isAtGoal();
 
     if (readyToShoot) {
       s_Tower.startForShooting();

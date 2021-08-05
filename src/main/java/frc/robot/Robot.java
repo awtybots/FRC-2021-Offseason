@@ -35,8 +35,8 @@ public class Robot extends TimedRobot {
     System.out.println("    ____\\_\\  \\ \\_______\\|\\________\\|\\_______\\  ");
     System.out.println("    |\\_________\\|_______| \\|_______|\\|_______| ");
     System.out.println("    \\|_________|                               ");
-  }                             
-                                                   
+  }
+
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
 
-    if(!boundIO) {
+    if (!boundIO) {
       robotContainer.bindIO();
       boundIO = true;
     }

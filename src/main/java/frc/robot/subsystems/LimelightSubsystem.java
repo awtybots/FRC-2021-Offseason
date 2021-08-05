@@ -10,7 +10,7 @@ public class LimelightSubsystem extends Limelight {
   }
 
   public void toggleForPowerPort(boolean on) {
-    if(on) {
+    if (on) {
       // toggleDriverMode(false);
       setPipeline(Constants.Limelight.powerPortPipeline);
       toggleLED(LEDMode.PipelineDefault);

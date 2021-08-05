@@ -23,12 +23,12 @@ public class RobotContainer {
   public static final ShooterSubsystem s_Shooter = new ShooterSubsystem();
   public static final TurretSubsystem s_Turret = new TurretSubsystem();
   public static final LimelightSubsystem s_Limelight = new LimelightSubsystem();
-  public static final AutoShootSolver s_AutoShootSolver = new AutoShootSolver.AutoShootInterpolationSolver();
+  public static final AutoShootSolver s_AutoShootSolver =
+      new AutoShootSolver.AutoShootInterpolationSolver();
 
   private SendableChooser<Command> autonSelector = new SendableChooser<>();
 
-  public RobotContainer() {
-  }
+  public RobotContainer() {}
 
   public void autonSetup() {
     autonSelector.setDefaultOption("Do Nothing", new InstantCommand());

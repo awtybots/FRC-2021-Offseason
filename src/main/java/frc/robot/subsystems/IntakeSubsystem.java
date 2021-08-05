@@ -9,7 +9,6 @@ import static frc.robot.Constants.Intake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private final TalonSRX armMotor;
 
   private final double armSensorRatio = 1.0 / 4096.0 * Intake.armGearRatio * 360.0;
-  
+
   private boolean armDown = false;
   private boolean armMoving = false;
   private double armGoalAngle = Intake.armAngleUp;
@@ -37,7 +36,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     rollerMotor = new TalonSRX(Intake.rollerMotorID);
     rollerMotor.configFactoryDefault();
-    
+
     armMoveTimer.start();
   }
 
@@ -50,10 +49,10 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Intake Arm Moving", armMoving);
     SmartDashboard.putBoolean("Intake Arm At Goal", armAngleAtGoal);
 
-    if(armMoving) {
-      if(armMoveTimer.get() > Intake.armMoveTimeout || armAngleAtGoal) {
+    if (armMoving) {
+      if (armMoveTimer.get() > Intake.armMoveTimeout || armAngleAtGoal) {
         armMoving = false;
-        if(armDown) {
+        if (armDown) {
           setArmMotor(0.0);
         } else {
           setArmMotor(Intake.armStallPercentOutput);
@@ -63,13 +62,13 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void toggleArm(boolean down) {
-    if(down == armDown) return;
+    if (down == armDown) return;
 
     armDown = down;
     armMoveTimer.reset();
     armMoving = true;
 
-    if(armDown) {
+    if (armDown) {
       setArmMotor(Intake.armDownPercentOutput);
       armGoalAngle = Intake.armAngleDown;
     } else {

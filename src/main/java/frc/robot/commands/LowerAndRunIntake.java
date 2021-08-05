@@ -4,19 +4,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import static frc.robot.RobotContainer.*;
+
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 
 public class LowerAndRunIntake extends StartEndCommand {
 
   public LowerAndRunIntake() {
-    super(() -> {
-      s_Intake.toggleArm(true);
-      s_Intake.toggleRoller(true);
-      // s_Indexer.startForIntaking();
-    }, () -> {
-      s_Intake.toggleRoller(false);
-      // s_Indexer.stop();
-    }, s_Intake);
+    super(
+        () -> {
+          s_Intake.toggleArm(true);
+          s_Intake.toggleRoller(true);
+          // s_Indexer.startForIntaking();
+        },
+        () -> {
+          s_Intake.toggleRoller(false);
+          // s_Indexer.stop();
+        },
+        s_Intake);
   }
 }
