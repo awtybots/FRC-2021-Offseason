@@ -17,25 +17,27 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private DifferentialDrive robotDrive;
 
-  /** Contructor. */
   public DrivetrainSubsystem() {
     frontRight = new WPI_TalonFX(Constants.Drivetrain.rightFront);
     frontLeft = new WPI_TalonFX(Constants.Drivetrain.leftFront);
     backRight = new WPI_TalonFX(Constants.Drivetrain.rightBack);
     backLeft = new WPI_TalonFX(Constants.Drivetrain.leftBack);
 
-    if (Constants.Drivetrain.invertRightSide) {
-      frontRight.setInverted(true);
-      backRight.setInverted(true);
-    }
-
     backRight.follow(frontRight);
     backLeft.follow(frontLeft);
 
     robotDrive = new DifferentialDrive(frontLeft, frontRight);
+    stop();
   }
 
   public void drive(double speed, double rotation) {
     robotDrive.arcadeDrive(speed, rotation);
   }
+
+  public void stop() {
+    drive(0, 0);
+  }
+
+  @Override
+  public void periodic() {}
 }
