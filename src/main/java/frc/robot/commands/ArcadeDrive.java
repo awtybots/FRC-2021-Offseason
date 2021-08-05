@@ -18,6 +18,7 @@ public class ArcadeDrive extends CommandBase {
   public ArcadeDrive(DrivetrainSubsystem sDrivetrainSubsystem, XboxController driveController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(sDrivetrainSubsystem);
+    drivetrainSubsystem = sDrivetrainSubsystem;
     controller = driveController;
   }
 

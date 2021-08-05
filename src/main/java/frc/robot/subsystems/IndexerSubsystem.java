@@ -14,7 +14,7 @@ public class IndexerSubsystem extends SubsystemBase {
   private WPI_TalonSRX indexerMotor;
 
   public IndexerSubsystem() {
-    indexerMotor = new WPI_TalonSRX(Constants.Indexer.indexerMotor);
+    indexerMotor = new WPI_TalonSRX(Constants.Indexer.indexerLeft);
     if (Constants.Indexer.inverted) indexerMotor.setInverted(true);
   }
 
