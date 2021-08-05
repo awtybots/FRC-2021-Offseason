@@ -26,15 +26,15 @@ public final class Constants {
     public static final boolean invertBackMotor = false;
     public static final int frontMotor = 5;
     public static final int backMotor = 6;
-    public static final double maxSpeedBack = 0.45; // TODO FIX
-    public static final double maxSpeedFront = 0.45; // TODO FIX
+    public static final double maxSpeedBack = 0.45; // TODO change to realistic number (0.0 to 1.0)
+    public static final double maxSpeedFront = 0.45; // TODO change to realistic number (0.0 to 1.0)
   }
 
   public static class Indexer {
     public static final boolean inverted = false;
     public static final int indexerRight = 9;
     public static final int indexerLeft = 10;
-    public static final double maxSpeed = 0.35;
+    public static final double maxSpeed = 0.35; // TODO change to realistic number (0.0 to 1.0)
   }
 
   public static class Intake {
@@ -42,6 +42,16 @@ public final class Constants {
     public static final boolean invertRoller = false;
     public static final int liftMotor = 7;
     public static final int rollerMotor = 8;
-    public static final double rollerSpeed = 0.3;
+    public static final double rollerSpeed = 0.3; // TODO change to realistic number (0.0 to 1.0)
+  }
+
+  public static class Shooter {
+    public static final int flywheelLeftID = 11;
+    public static final int flywheelRightID = 12;
+
+    public static final double flywheelGearRatio = 1.0; // ! TODO Change to accurate ratio
+    public static final double flywheelSensorRatio = 1.0 / 2048.0 * 10.0 / flywheelGearRatio * 60.0;
+    public static final double flywheelMaxRpm = 3000.0; // TODO change to higher number once safe
+    public static final double flywheelRpmAcceptableError = 50.0;
   }
 }
