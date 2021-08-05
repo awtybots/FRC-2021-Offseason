@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import util.controls.Controller;
 
 public class ArcadeDrive extends CommandBase {
   /** Creates a new DriveCommand. */
   private DrivetrainSubsystem drivetrainSubsystem;
 
-  private XboxController controller;
+  private Controller controller;
 
-  public ArcadeDrive(DrivetrainSubsystem sDrivetrainSubsystem, XboxController driveController) {
+  public ArcadeDrive(DrivetrainSubsystem sDrivetrainSubsystem, Controller driveController) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(sDrivetrainSubsystem);
     drivetrainSubsystem = sDrivetrainSubsystem;

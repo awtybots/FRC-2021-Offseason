@@ -15,6 +15,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TowerSubsystem;
+import util.controls.Controller;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,23 +25,15 @@ import frc.robot.subsystems.TowerSubsystem;
  */
 public class RobotContainer {
 
-  private final XboxController driverController = new XboxController(0);
+  private final Controller driverController = new Controller(0);
 
-  private final JoystickButton runTowerUp =
-      new JoystickButton(driverController, XboxController.Button.kA.value);
-  private final JoystickButton runTowerDown =
-      new JoystickButton(driverController, XboxController.Button.kB.value);
+  private final JoystickButton runTowerUp = driverController.buttonA;
+  private final JoystickButton runTowerDown = driverController.buttonB;
 
-  private final JoystickButton runIntakeIn =
-      new JoystickButton(driverController, XboxController.Button.kX.value);
-  private final JoystickButton runIntakeOut =
-      new JoystickButton(driverController, XboxController.Button.kY.value);
-  private final JoystickButton liftIntake =
-      new JoystickButton(
-          driverController, XboxController.Button.kStart.value); // TODO Change these buttons
-  private final JoystickButton lowerIntake =
-      new JoystickButton(
-          driverController, XboxController.Button.kBumperLeft.value); // TODO Change these buttons
+  private final JoystickButton runIntakeIn = driverController.buttonX;
+  private final JoystickButton runIntakeOut = driverController.buttonY;
+  private final JoystickButton liftIntake = driverController.buttonStart;
+  private final JoystickButton lowerIntake = driverController.bumperLeft;
 
   /// --- Subsystems --- ///
   private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
