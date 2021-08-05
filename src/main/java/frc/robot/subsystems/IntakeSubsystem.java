@@ -28,4 +28,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void lift(boolean up) {
     // TODO i'm not sure how to do this please help
   }
+
+  @Override
+  public void periodic() {}
 }

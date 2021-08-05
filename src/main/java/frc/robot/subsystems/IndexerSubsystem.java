@@ -21,4 +21,7 @@ public class IndexerSubsystem extends SubsystemBase {
   public void run(double speed) {
     indexerMotor.set(ControlMode.PercentOutput, speed * Constants.Indexer.maxSpeed);
   }
+
+  @Override
+  public void periodic() {}
 }

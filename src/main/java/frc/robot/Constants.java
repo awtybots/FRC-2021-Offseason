@@ -32,8 +32,8 @@ public final class Constants {
 
   public static class Indexer {
     public static final boolean inverted = false;
-    public static final int indexerLeft = 0; // TODO fill these in with the correct CAN Bus IDs
-    public static final int indexerRight = 0; // TODO fill these in with the correct CAN Bus IDs
+    public static final int indexerLeft = 9; // TODO fill these in with the correct CAN Bus IDs
+    public static final int indexerRight = 10; // TODO fill these in with the correct CAN Bus IDs
     public static final double maxSpeed = 0.35;
   }
 

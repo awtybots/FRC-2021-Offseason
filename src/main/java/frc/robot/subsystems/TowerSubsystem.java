@@ -26,4 +26,7 @@ public class TowerSubsystem extends SubsystemBase {
     frontMotor.set(ControlMode.PercentOutput, frontSpeed * Constants.Tower.maxSpeedFront);
     backMotor.set(ControlMode.PercentOutput, backSpeed * Constants.Tower.maxSpeedBack);
   }
+
+  @Override
+  public void periodic() {}
 }
