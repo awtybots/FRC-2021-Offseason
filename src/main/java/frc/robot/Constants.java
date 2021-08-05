@@ -15,10 +15,10 @@ package frc.robot;
 public final class Constants {
   public static class Drivetrain {
     public static final boolean invertRightSide = false;
-    public static final int rightFront = 2;
     public static final int rightBack = 1;
-    public static final int leftFront = 3;
+    public static final int rightFront = 2;
     public static final int leftBack = 4;
+    public static final int leftFront = 3;
   }
 
   public static class Tower {
@@ -32,8 +32,8 @@ public final class Constants {
 
   public static class Indexer {
     public static final boolean inverted = false;
-    public static final int indexerLeft = 9; // TODO fill these in with the correct CAN Bus IDs
-    public static final int indexerRight = 10; // TODO fill these in with the correct CAN Bus IDs
+    public static final int indexerRight = 9;
+    public static final int indexerLeft = 10;
     public static final double maxSpeed = 0.35;
   }
 
