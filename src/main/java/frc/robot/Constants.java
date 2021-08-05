@@ -43,7 +43,7 @@ public final class Constants {
 
     public static final double intakingPercentOutput = 0.25;
     public static final double shootingPercentOutput = 0.8;
-    public static final double unjammingPercentOutput = -0.5;
+    public static final double unjammingPercentOutput = -0.8;
   }
 
   public static final class Shooter {
