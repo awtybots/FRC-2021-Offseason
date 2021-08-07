@@ -32,7 +32,7 @@ public class TurretSubsystem extends SubsystemBase {
 
     motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     motor.setSelectedSensorPosition(currentAngle / sensorRatio);
-    motor.configAllowableClosedloopError(0, Turret.angleAcceptableError / 2.0 / sensorRatio);
+    motor.configAllowableClosedloopError(0, 0.2 / sensorRatio);
     motor.configClosedloopRamp(0.1);
     motor.configClosedLoopPeakOutput(0, Turret.maxSpeed);
     motor.config_kP(0, 0.05);
@@ -54,8 +54,7 @@ public class TurretSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Turret At Goal", atGoal);
     SmartDashboard.putNumber("Turret Motor Output", motor.getMotorOutputPercent());
 
-    if (Settings.testMode)
-      rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle));
+    if (Settings.testMode) rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle));
   }
 
   // PUBLIC METHODS

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static frc.robot.RobotContainer.*;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,7 +29,7 @@ public class Robot extends TimedRobot {
     robotContainer = new RobotContainer();
     robotContainer.autonSetup();
 
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       System.out.println("=== 5829 ===");
     }
   }
@@ -43,7 +45,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    s_Limelight.toggleForPowerPort(false);
+  }
 
   @Override
   public void autonomousInit() {

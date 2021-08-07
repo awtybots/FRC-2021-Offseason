@@ -47,7 +47,8 @@ public class ShooterSubsystem extends SubsystemBase {
     hoodMotor.configClosedloopRamp(0.1);
     hoodMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     hoodMotor.setSelectedSensorPosition(hoodCurrentLaunchAngle / hoodSensorRatio);
-    hoodMotor.configAllowableClosedloopError(0, Shooter.hoodLaunchAngleAcceptableError / 2.0 / hoodSensorRatio);
+    hoodMotor.configAllowableClosedloopError(
+        0, Shooter.hoodLaunchAngleAcceptableError / 2.0 / hoodSensorRatio);
     hoodMotor.config_kP(0, 1.0);
     hoodMotor.config_kI(0, 0.01);
     hoodMotor.configMaxIntegralAccumulator(0, 4096);

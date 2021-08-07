@@ -48,6 +48,7 @@ public class RobotContainer {
 
     // operator
     controller2.buttonBack.whenHeld(new TestCommand());
+    controller2.buttonStart.whenHeld(new AutoAim());
 
     controller2.bumperLeft.whenHeld(new Unjam());
     controller2.bumperRight.whenHeld(new RunIndexerTower());

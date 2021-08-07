@@ -65,8 +65,7 @@ public class IntakeSubsystem extends SubsystemBase {
       }
     }
 
-    if (Settings.testMode)
-      toggleArm(SmartDashboard.getBoolean("Intake Arm Down Manual", armDown));
+    if (Settings.testMode) toggleArm(SmartDashboard.getBoolean("Intake Arm Down Manual", armDown));
   }
 
   public void toggleArm(boolean down) {
