@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Settings;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -64,7 +65,8 @@ public class IntakeSubsystem extends SubsystemBase {
       }
     }
 
-    // toggleArm(SmartDashboard.getBoolean("Intake Arm Down Manual", armDown));
+    if (Settings.testMode)
+      toggleArm(SmartDashboard.getBoolean("Intake Arm Down Manual", armDown));
   }
 
   public void toggleArm(boolean down) {

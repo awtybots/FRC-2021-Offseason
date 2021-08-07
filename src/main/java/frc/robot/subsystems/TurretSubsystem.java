@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.Constants.Settings;
 import frc.robot.Constants.Turret;
 
 public class TurretSubsystem extends SubsystemBase {
@@ -53,7 +54,8 @@ public class TurretSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Turret At Goal", atGoal);
     SmartDashboard.putNumber("Turret Motor Output", motor.getMotorOutputPercent());
 
-    // rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle));
+    if (Settings.testMode)
+      rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle));
   }
 
   // PUBLIC METHODS
