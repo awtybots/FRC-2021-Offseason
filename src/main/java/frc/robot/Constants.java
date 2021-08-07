@@ -18,24 +18,16 @@ public final class Constants {
     public static final int rollerMotorID = 2;
 
     public static final double armGearRatio = 24.0 / 72.0;
-    public static final double armAngleUp = -10; // degrees, straight up is 0
-    public static final double armAngleDown = 105; // degrees
+    public static final double armAngleUp = 3; // degrees
+    public static final double armAngleDown = 100; // degrees
     public static final double armAngleAcceptableError = 5; // degrees;
     public static final double armMoveTimeout = 3.0; // seconds
 
     public static final double armStallPercentOutput = 0.0;
-    public static final double armDownPercentOutput = -0.25;
+    public static final double armDownPercentOutput = -0.15;
     public static final double armUpPercentOutput = 0.25;
 
     public static final double rollerPercentOutput = 0.8;
-  }
-
-  public static final class Tower {
-    public static final int frontMotorID = 5;
-    public static final int backMotorID = 7;
-
-    public static final double shootingPercentOutput = 0.7;
-    public static final double unjammingPercentOutput = -0.4;
   }
 
   public static final class Indexer {
@@ -44,6 +36,14 @@ public final class Constants {
     public static final double intakingPercentOutput = 0.25;
     public static final double shootingPercentOutput = 0.8;
     public static final double unjammingPercentOutput = -0.8;
+  }
+
+  public static final class Tower {
+    public static final int frontMotorID = 5;
+    public static final int backMotorID = 7;
+
+    public static final double shootingPercentOutput = 0.7;
+    public static final double unjammingPercentOutput = -0.4;
   }
 
   public static final class Shooter {

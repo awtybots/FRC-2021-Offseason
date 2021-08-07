@@ -8,6 +8,7 @@ import static frc.robot.Constants.Intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,12 +33,15 @@ public class IntakeSubsystem extends SubsystemBase {
     armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     armMotor.setSensorPhase(true);
     armMotor.setSelectedSensorPosition(Intake.armAngleUp / armSensorRatio);
+    armMotor.setNeutralMode(NeutralMode.Brake);
     setArmMotor(Intake.armStallPercentOutput);
 
     rollerMotor = new TalonSRX(Intake.rollerMotorID);
     rollerMotor.configFactoryDefault();
 
     armMoveTimer.start();
+
+    SmartDashboard.putBoolean("Intake Arm Down Manual", false);
   }
 
   @Override
@@ -59,6 +63,8 @@ public class IntakeSubsystem extends SubsystemBase {
         }
       }
     }
+
+    // toggleArm(SmartDashboard.getBoolean("Intake Arm Down Manual", armDown));
   }
 
   public void toggleArm(boolean down) {
