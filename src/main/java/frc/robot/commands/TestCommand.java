@@ -4,6 +4,7 @@ import static frc.robot.RobotContainer.*;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+@SuppressWarnings("all")
 public class TestCommand extends CommandBase {
   @Override
   public void initialize() {

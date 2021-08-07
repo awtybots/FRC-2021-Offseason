@@ -57,7 +57,7 @@ public final class Constants {
     public static final double hoodGearRatio = 30.0 / 72.0 * 0.5;
     public static final double minHoodLaunchAngle = 56.0;
     public static final double maxHoodLaunchAngle = 76.0;
-    public static final double hoodLaunchAngleAcceptableError = 1.0; // TODO
+    public static final double hoodLaunchAngleAcceptableError = 1.0;
 
     public static final double[][] autoShootInterpolationMap =
         new double[][] {
@@ -75,16 +75,16 @@ public final class Constants {
 
     public static final double homeAngle = 180.0;
     public static final double minAngle = 135.0;
-    public static final double maxAngle = 359.99;
-    public static final double angleAcceptableError = 2.0; // TODO
+    public static final double maxAngle = 350.0;
+    public static final double angleAcceptableError = 1.0;
 
-    public static final double gearRatio = 1.0 / 10.8; // TODO
-    public static final double maxSpeed = 0.5;
+    public static final double gearRatio = 1.0 / 10.8;
+    public static final double maxSpeed = 0.4;
   }
 
   public static final class Limelight {
-    public static final double mountingHeight = 0.531; // TODO
-    public static final double mountingAngle = 23; // TODO
+    public static final double mountingHeight = 0.585; // meters
+    public static final double mountingAngle = 15; // degrees
 
     public static final int powerPortPipeline = 0;
   }

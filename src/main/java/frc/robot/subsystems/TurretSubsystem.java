@@ -26,12 +26,17 @@ public class TurretSubsystem extends SubsystemBase {
     motor = new TalonSRX(Turret.motorID);
     motor.configFactoryDefault();
     motor.setNeutralMode(NeutralMode.Brake);
+    motor.setSensorPhase(true);
+    motor.setInverted(true);
 
     motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     motor.setSelectedSensorPosition(currentAngle / sensorRatio);
+    motor.configAllowableClosedloopError(0, Turret.angleAcceptableError / 2.0 / sensorRatio);
     motor.configClosedloopRamp(0.1);
-    motor.config_kP(0, 0.1); // TODO
-    motor.config_kI(0, 0);
+    motor.configClosedLoopPeakOutput(0, Turret.maxSpeed);
+    motor.config_kP(0, 0.05);
+    motor.config_kI(0, 0.02);
+    motor.configMaxIntegralAccumulator(0, 4096);
     motor.config_kD(0, 0);
     motor.config_kF(0, 0);
 
@@ -46,8 +51,9 @@ public class TurretSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Turret Goal Angle", goalAngle);
     SmartDashboard.putNumber("Turret Current Angle", currentAngle);
     SmartDashboard.putBoolean("Turret At Goal", atGoal);
+    SmartDashboard.putNumber("Turret Motor Output", motor.getMotorOutputPercent());
 
-    rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle)); // ! TODO remove
+    // rotateTo(SmartDashboard.getNumber("Turret Manual Angle", currentAngle));
   }
 
   // PUBLIC METHODS
