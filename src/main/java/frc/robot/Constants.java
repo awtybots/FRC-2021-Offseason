@@ -61,6 +61,18 @@ public final class Constants {
     public static final double flywheelRpmAcceptableError = 50.0;
     public static final double flywheelRadius = 0.051; // meters
 
+    public static final double flywheelSensorRatio =
+        1.0 / 2048.0 * 10.0 / Shooter.flywheelGearRatio * 60.0;
+    public static final double hoodSensorRatio = 1.0 / 4096.0 * Shooter.hoodGearRatio * 360.0;
+
+    public static final double launchAngleToHoodEncoder(double launchAngle) {
+      return launchAngle / hoodSensorRatio;
+    }
+
+    public static final double hoodEncoderToLaunchAngle(double encoderTicks) {
+      return encoderTicks * hoodSensorRatio;
+    }
+
     public static final double launchVelocityToFlywheelRPM(double meters_per_sec) {
       return meters_per_sec / (flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
     }
