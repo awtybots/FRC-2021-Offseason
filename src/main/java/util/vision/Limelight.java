@@ -25,8 +25,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public boolean hasVisibleTarget() {
-    double res = getValue(TableEntry.HasValidTargets);
-    return res == 1.0;
+    return getValue(TableEntry.HasValidTargets) == 1.0;
   }
 
   /**
@@ -45,16 +44,19 @@ public class Limelight extends SubsystemBase {
 
   /** Set the current camera pipeline (integer from 0 to 9, inclusive) */
   public void setPipeline(int pipeline) {
-    if (pipeline < 10 && pipeline > -1) setValue(TableEntry.CurrentPipeline, pipeline);
-  }
-
-  public void toggleDriverMode(boolean enabled) {
-    setValue(TableEntry.OperationMode, enabled ? 1.0 : 0.0);
+    if (pipeline < 10 && pipeline > -1) {
+      setValue(TableEntry.CurrentPipeline, pipeline);
+    }
   }
 
   public void toggleLED(LEDMode state) {
     setValue(TableEntry.LEDMode, state.ordinal());
   }
+
+  // * This is extremely slow and a seperate pipeline should be used for a driver mode *//
+  // public void toggleDriverMode(boolean enabled) {
+  //   setValue(TableEntry.OperationMode, enabled ? 1.0 : 0.0);
+  // }
 
   private double getValue(TableEntry entry) {
     return netTable.getEntry(entry.getter).getValue().getDouble();

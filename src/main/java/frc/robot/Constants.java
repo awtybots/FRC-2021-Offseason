@@ -61,6 +61,10 @@ public final class Constants {
     public static final double flywheelRpmAcceptableError = 50.0;
     public static final double flywheelRadius = 0.051; // meters
 
+    public static final double launchVelocityToFlywheelRPM(double meters_per_sec) {
+      return meters_per_sec / (flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
+    }
+
     public static final int hoodMotorID = 6;
     public static final double hoodGearRatio = 30.0 / 72.0 * 0.5;
     public static final double minHoodLaunchAngle = 56.0;

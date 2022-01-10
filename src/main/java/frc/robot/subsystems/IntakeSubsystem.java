@@ -57,11 +57,8 @@ public class IntakeSubsystem extends SubsystemBase {
     if (armMoving) {
       if (armMoveTimer.get() > Intake.armMoveTimeout || armAngleAtGoal) {
         armMoving = false;
-        if (armDown) {
-          setArmMotor(0.0);
-        } else {
-          setArmMotor(Intake.armStallPercentOutput);
-        }
+        if (armDown) setArmMotor(0.0);
+        else setArmMotor(Intake.armStallPercentOutput);
       }
     }
 

@@ -27,6 +27,7 @@ public class AutoShoot extends CommandBase {
 
   @Override
   public void execute() {
+    // * Fail if can't see goal *//
     if (!s_Limelight.hasVisibleTarget()) return;
 
     s_Turret.rotateBy(s_Limelight.targetXOffset());
@@ -38,12 +39,11 @@ public class AutoShoot extends CommandBase {
     double goalLaunchVelocity = solutionValues.getFirst();
     double goalLaunchAngle = solutionValues.getSecond();
 
-    boolean solution = !Double.isNaN(goalLaunchVelocity);
-    SmartDashboard.putBoolean("Projectile Motion Solution", solution);
-    if (!solution) return;
+    boolean hasSolution = !Double.isNaN(goalLaunchVelocity);
+    SmartDashboard.putBoolean("Projectile Motion Solution", hasSolution);
+    if (!hasSolution) return;
 
-    double goalFlywheelRpm =
-        goalLaunchVelocity / (Shooter.flywheelRadius * 2.0 * Math.PI) * 60.0 * 2.0;
+    double goalFlywheelRpm = Shooter.launchVelocityToFlywheelRPM(goalLaunchVelocity);
     s_Shooter.setFlywheelRpm(goalFlywheelRpm);
     s_Shooter.setHoodLaunchAngle(goalLaunchAngle);
 
