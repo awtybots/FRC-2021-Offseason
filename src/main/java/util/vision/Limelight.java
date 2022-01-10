@@ -24,7 +24,7 @@ public class Limelight extends SubsystemBase {
     return mountingAngle;
   }
 
-  public boolean hasVisibleTarget() {
+  public boolean hasTarget() {
     return getValue(TableEntry.HasValidTargets) == 1.0;
   }
 

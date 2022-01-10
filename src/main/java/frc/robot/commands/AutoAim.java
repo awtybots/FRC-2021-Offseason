@@ -16,7 +16,7 @@ public class AutoAim extends CommandBase {
 
   @Override
   public void execute() {
-    if (!s_Limelight.hasVisibleTarget()) return;
+    if (!s_Limelight.hasTarget()) return;
 
     s_Turret.rotateBy(s_Limelight.targetXOffset());
   }

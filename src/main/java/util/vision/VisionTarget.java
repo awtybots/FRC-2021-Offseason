@@ -20,7 +20,7 @@ public class VisionTarget {
    * @return The displacement vector, or null if no vision target is detected.
    */
   public Vector2 getGoalDisplacement() {
-    if (!limelight.hasVisibleTarget()) return null;
+    if (!limelight.hasTarget()) return null;
 
     double angleY = limelight.targetYOffset();
 

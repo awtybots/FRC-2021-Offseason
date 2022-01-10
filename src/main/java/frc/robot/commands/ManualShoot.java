@@ -22,14 +22,14 @@ public class ManualShoot extends CommandBase {
 
   @Override
   public void initialize() {
-    s_Shooter.setFlywheelRpm(flywheelRpm);
-    s_Shooter.setHoodLaunchAngle(hoodLaunchAngle);
+    s_Shooter.setFlywheelRPM(flywheelRpm);
+    s_Shooter.setLaunchAngle(hoodLaunchAngle);
     s_Shooter.periodic(); // updates the errors so the first execute() doesn't enable tower
   }
 
   @Override
   public void execute() {
-    if (s_Shooter.isFlywheelAtGoal()) {
+    if (s_Shooter.atTarget()) {
       s_Tower.startForShooting();
       s_Indexer.startForShooting();
     }

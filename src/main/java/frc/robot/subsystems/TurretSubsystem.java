@@ -85,7 +85,7 @@ public class TurretSubsystem extends SubsystemBase {
     motor.set(ControlMode.Position, goalAngle / sensorRatio);
   }
 
-  public boolean isAtGoal() {
+  public boolean atGoal() {
     return atGoal;
   }
 }

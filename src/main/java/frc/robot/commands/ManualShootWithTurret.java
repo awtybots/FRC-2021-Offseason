@@ -22,8 +22,8 @@ public class ManualShootWithTurret extends CommandBase {
 
   @Override
   public void initialize() {
-    s_Shooter.setFlywheelRpm(flywheelRpm);
-    s_Shooter.setHoodLaunchAngle(hoodLaunchAngle);
+    s_Shooter.setFlywheelRPM(flywheelRpm);
+    s_Shooter.setLaunchAngle(hoodLaunchAngle);
     s_Shooter.periodic(); // updates the errors so the first execute() doesn't enable tower
 
     s_Limelight.toggleForPowerPort(true);
@@ -31,9 +31,9 @@ public class ManualShootWithTurret extends CommandBase {
 
   @Override
   public void execute() {
-    if (s_Limelight.hasVisibleTarget()) s_Turret.rotateBy(s_Limelight.targetXOffset());
+    if (s_Limelight.hasTarget()) s_Turret.rotateBy(s_Limelight.targetXOffset());
 
-    if (s_Shooter.isFlywheelAtGoal() && s_Turret.isAtGoal()) {
+    if (s_Shooter.atTarget() && s_Turret.atGoal()) {
       s_Tower.startForShooting();
       s_Indexer.startForShooting();
     }
