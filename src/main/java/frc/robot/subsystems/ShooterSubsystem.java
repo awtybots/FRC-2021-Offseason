@@ -19,7 +19,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   private double targetRPM = 0;
   private double targetLaunchAngle = Shooter.maxHoodLaunchAngle;
-  private boolean atRPM, atLaunchAngle = true;
+  private boolean atRPM = true, atLaunchAngle = true;
 
   public ShooterSubsystem() {
     hood = new TalonSRX(Shooter.hoodMotorID);
