@@ -6,22 +6,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
 
-  private double mountingHeight;
-  private double mountingAngle;
-
+  public final double mountingHeight;
+  public final double mountingAngle;
   private final NetworkTable netTable = NetworkTableInstance.getDefault().getTable("limelight");
 
   public Limelight(double mountingHeight, double mountingAngle) {
     this.mountingAngle = mountingAngle;
     this.mountingHeight = mountingHeight;
-  }
-
-  public double getMountingHeight() {
-    return mountingHeight;
-  }
-
-  public double getMountingAngle() {
-    return mountingAngle;
   }
 
   public boolean hasTarget() {
@@ -93,8 +84,7 @@ public class Limelight extends SubsystemBase {
     }
 
     TableEntry(String getter) {
-      this.setter = "";
-      this.getter = getter;
+      this(getter, "");
     }
   }
 }

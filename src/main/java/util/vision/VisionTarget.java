@@ -24,10 +24,10 @@ public class VisionTarget {
 
     double angleY = limelight.targetYOffset();
 
-    double opposite = visionTargetY - limelight.getMountingHeight();
-    double tangent = Math.tan(Math.toRadians(limelight.getMountingAngle() + angleY));
+    double opposite = visionTargetY - limelight.mountingHeight;
+    double tangent = Math.tan(Math.toRadians(limelight.mountingAngle + angleY));
     double adjacent = opposite / tangent;
 
-    return new Vector2(adjacent, goalY - limelight.getMountingHeight());
+    return new Vector2(adjacent, goalY - limelight.mountingHeight);
   }
 }
